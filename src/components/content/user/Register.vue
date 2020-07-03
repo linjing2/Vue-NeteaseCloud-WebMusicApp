@@ -8,6 +8,9 @@
     </div>
     <div class="main">
       <div>
+          <div class="from-item">
+          <input type="text" name="nickname" id="nickname" placeholder="请输入昵称" required v-model="nickname"/>
+        </div>
         <div class="from-item">
           <input type="text" name="phone" id="phone" placeholder="请输入手机号" required v-model="phone" @blur="phoneVerify()"/>
           <p>{{phoneMessage}}</p>
@@ -17,17 +20,13 @@
           <p>{{pwdMessage}}</p>
         </div>
         <div class="from-item">
-          <input type="submit" value="登陆" class="log" @click="login()"/>
-        </div>
-        <div class="from-item">
-          <div class="register">注册</div>
+          <input type="submit" value="确定" class="log" @click="login()"/>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import {_phoneVerify,_login} from 'network/user/userVerify'
 export default {
   name: "Login",
   data(){
@@ -45,32 +44,14 @@ export default {
       },
       /**登陆 */
       login(){
-          _login(this.phone,this.password).then(res=>{
-              if(res.data.code!=200){
-                  this.pwdMessage='密码错误';
-              }
-              else{
-                  this.$store.commit('addUser',res.data);
-                  this.hiddenLogin();
-              }
-          })
       },
       /**手机号码验证 */
       phoneVerify(){
-          if(this.phone==''){
-              this.phoneMessage='请输入手机号';
-              return ;
-          }
-          else{
-              /**res.data.exist=1说明有此账号 */
-              _phoneVerify(this.phone).then(res=>{
-                  if(res.data.exist!=1){
-                      this.phoneMessage='手机号错误'
-                  }else{
-                      this.phoneMessage=''
-                  }
-              })
-          }
+          let regExp=/^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/;
+          this.phoneMessage='';
+        if(!regExp.test(this.phone)){ 
+          this.phoneMessage='手机格式不对'
+    } 
       }
   }
 };
@@ -79,9 +60,6 @@ export default {
 .login {
   width: 400px;
   height: 560px;
-  position:relative;
-  z-index:999;
-  top:0px;
   background: #fafafa;
 }
 .back {

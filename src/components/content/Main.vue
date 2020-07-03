@@ -1,17 +1,19 @@
 <template>
     <div class="main">
-        <login class="login"/>
-        <test/>
+        <router-view/>
+        <login class="login" v-show="$store.getters.getShowLogin"/>
     </div>
 </template>
 <script>
-import Test from 'views/test'
 import Login from './user/Login'
+
+import DiscoverMusic from 'views/discover/DiscoverMusic'
 export default {
     name:'Main',
     components:{
         Login,
-        Test
+
+        DiscoverMusic
     }
 }
 </script>
@@ -19,7 +21,6 @@ export default {
 .main{
   width: calc(100% - 15%);
   height: calc(100% - 54px - 59px);
-  background: yellow;
   margin-left: 15%;
   position:relative;
 }

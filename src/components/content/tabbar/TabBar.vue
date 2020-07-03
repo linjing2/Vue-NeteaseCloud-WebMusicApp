@@ -5,34 +5,62 @@
       <div class="title">小符音乐</div>
     </div>
 
-    <music-search/>
+    <music-search />
     <div class="content">
-        <div class="login">
+      <div class="login" @click="showLogin()">
         <div class="profile">
-            <img src="" alt="">
+          <img :src="getImage" alt />
         </div>
-        <div>未登录</div>
-    </div>
-    <div class="right">
-      <div>
-        <a href="#" title="最小化"><img src="~assets/img/content/min.svg" alt="最小化" /></a>
+        <div>{{getUserName}}</div>
       </div>
-      <div>
-        <a href="#" title="还原"><img src="~assets/img/content/reset.svg" alt="还原" /></a>
+
+      <div class="right">
+        <div>
+          <a href="#" title="最小化">
+            <img src="~assets/img/content/min.svg" alt="最小化" />
+          </a>
+        </div>
+        <div>
+          <a href="#" title="还原">
+            <img src="~assets/img/content/reset.svg" alt="还原" />
+          </a>
+        </div>
+        <div>
+          <a href="#" title="退出">
+            <img src="~assets/img/content/x.svg" alt="退出" />
+          </a>
+        </div>
       </div>
-      <div>
-        <a href="#" title="退出"><img src="~assets/img/content/x.svg" alt="退出" /></a>
-      </div>
-    </div>
     </div>
   </div>
 </template>
 <script>
-import MusicSearch from "../search/MusicSearch"
+import MusicSearch from "../search/MusicSearch";
 export default {
   name: "TabBar",
-  components:{
-      MusicSearch
+  components: {
+    MusicSearch
+  },
+  data(){
+    return{
+      image:'',
+      statu:'未登录',
+    }
+  },
+  computed:{
+    getImage(){
+      this.image=this.$store.state.user&&this.$store.state.user.profile.avatarUrl;
+      return this.image;
+    },
+    getUserName(){
+      if(this.$store.state.user==null)return this.statu;
+      return this.statu=this.$store.state.user&&this.$store.state.user.profile.nickname;
+    }
+  },
+  methods: {
+    showLogin() {
+      this.$store.commit("showLogin");
+    }
   }
 };
 </script>
@@ -40,8 +68,7 @@ export default {
 .tabbar {
   height: 54px;
   width: 100%;
-  border: 1px solid #fff;
-  background-color:#202023;
+  background-color: #202023;
 }
 .logo {
   height: 100%;
@@ -51,23 +78,28 @@ export default {
   float: left;
   align-items: center;
 }
-.content{
-    float: right;
-     height: 100%;
+.content {
+  float: right;
+  height: 100%;
 }
-.login{
-    height: 100%;
-    float: left;
-    margin-right: 50px;
-    display: flex;
-    align-items: center;
+.login {
+  cursor: pointer;
+  height: 100%;
+  float: left;
+  margin-right: 50px;
+  display: flex;
+  align-items: center;
 }
-.profile{
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background-color: #fff;
-    margin-right: 10px;
+.profile {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: #fff;
+  margin-right: 10px;
+}
+.profile img {
+  width: 100%;
+  border-radius: 50%;
 }
 .logo img {
   margin: 0px 10px 0px 10px;
@@ -78,15 +110,15 @@ export default {
   display: flex;
   align-items: center;
 }
-.right div{
-    flex: 1;
-    margin-right: 15px;
-     opacity: .6;
+.right div {
+  flex: 1;
+  margin-right: 15px;
+  opacity: 0.6;
 }
-.right div:hover{
-    opacity: 1;
+.right div:hover {
+  opacity: 1;
 }
-.right div img{
-    width: 22px;
+.right div img {
+  width: 22px;
 }
 </style>

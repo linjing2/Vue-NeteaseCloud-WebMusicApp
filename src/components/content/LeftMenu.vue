@@ -9,16 +9,18 @@
           {{item.title}}
         </dd>
       </router-link>
+        <my-song-list/>
     </dl>
   </div>
 </template>
 <script>
+import MySongList from 'components/content/user/MySongList'
 export default {
   name: "LeftMenu",
   data() {
     return {
       list: [
-        { link: "", image: "", title: "推荐" },
+        { link: "/discover", image: "", title: "推荐" },
         {
           link: "",
           image: require("assets/img/leftmenu/music-line.svg"),
@@ -69,6 +71,9 @@ export default {
       ],
       currentIndex: 1
     };
+  },
+  components:{
+    MySongList
   },
   methods: {
     checkClick(index) {

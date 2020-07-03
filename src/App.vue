@@ -27,7 +27,8 @@ export default {
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  background: rgb(22, 24, 28);
+  user-select: none;
+  background: #16181c;
   color: #fff;
 }
 </style>
