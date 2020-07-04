@@ -1,12 +1,11 @@
 import {request} from './request'
 
-/**最新专辑 */
-export function _getNewest(){
+/**获取轮播图数据 */
+export function _getBanner(){
     return request({
-        url:'/album/newest',
+        url:'/banner'
     })
 }
-
 /**推荐歌单 */
 export function _getPersonalized(config){
     return request({

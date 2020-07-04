@@ -1,5 +1,5 @@
 <template>
-  <div class="swiper" ref="swiper">
+  <div class="swiper" ref="swiper" v-if="banner!==null">
     <div class="left">
       <div class="pre">
         <img src="~assets/img/swiper/prev.svg" alt />
@@ -13,22 +13,22 @@
     <div class="imgBox">
       <ul>
         <li class="list1">
-          <img src="~assets/img/swiper/swiper1.png" alt />
+          <img :src="banner[0].imageUrl" alt />
         </li>
         <li class="list2">
-          <img src="~assets/img/swiper/swiper2.png" alt />
+          <img :src="banner[1].imageUrl" alt />
         </li>
         <li class="list3">
-          <img src="~assets/img/swiper/swiper3.png" alt />
+          <img :src="banner[2].imageUrl" alt />
         </li>
         <li class="list4">
-          <img src="~assets/img/swiper/swiper4.png" alt />
+          <img :src="banner[3].imageUrl" alt />
         </li>
         <li class="list5">
-          <img src="~assets/img/swiper/swiper5.png" alt />
+          <img :src="banner[4].imageUrl" alt />
         </li>
         <li class="list6">
-          <img src="~assets/img/swiper/swiper6.png" alt />
+          <img :src="banner[5].imageUrl" alt />
         </li>
       </ul>
     </div>
@@ -43,23 +43,21 @@
   </div>
 </template>
 <script>
-import {_Swiper} from './swiper'
+import {_Swiper} from './indexSwiper'
 export default {
-  props: {
-    imgList: {
-      type: Array,
-      default() {
-        return [];
+  name:'Swiper',
+  props:{
+    banner:{
+      type:Array,
+      default(){
+        return []
       }
     }
   },
-  data() {
-    return {
-      value2: 0,
-    };
-  },
-  mounted(){
-    _Swiper(this.$refs.swiper);
+  updated(){
+   if(this.$refs.swiper!=null){
+      _Swiper(this.$refs.swiper);
+   }
   },
 };
 </script>

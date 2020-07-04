@@ -5,3 +5,11 @@ export const imgLoadMixin={
         }
     },
 }
+
+export const clickMixin={
+    data(){
+        return{
+            currentIndex:0,
+        }
+    },
+}

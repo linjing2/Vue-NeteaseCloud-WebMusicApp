@@ -1,21 +1,21 @@
 <template>
   <div class="discover">
     <nav-bar :list="list" />
-    <scroll class="discover-scroll" ref="scroll" :pull-up-load="true" @pullingUp="pullingUp">
+    <scroll class="discover-scroll" ref="scroll">
       <div class="content">
-        <swiper />
+        <swiper :banner="banner"/>
         <p>推荐歌单</p>
         <music-list :personList="personalized" @imgLoad="imgLoad" />
         <private-content :pri="privateContent" @priImgLoad="priImgLoad" />
-        <new-songs :songList="songList" />
+        <new-songs :songList="songList" @newSongImgLoad="newSongImgLoad"/>
       </div>
     </scroll>
   </div>
 </template>
 <script>
-import Swiper from "components/common/swiper/Swiper";
 import MusicList from "components/content/musiclist/MusicList";
 import Scroll from "components/common/scroll/Scroll";
+import Swiper from "components/common/swiper/Swiper"
 
 import NavBar from "./childComps/NavBar";
 import PrivateContent from "./childComps/PrivateContent";
@@ -24,7 +24,8 @@ import newSongs from "./childComps/newSongs";
 import {
   _getNewSong,
   _getPersonalized,
-  _getPrivateContent
+  _getPrivateContent,
+  _getBanner
 } from "network/discover";
 import { debounce } from "assets/common/tool";
 export default {
@@ -32,7 +33,7 @@ export default {
   data() {
     return {
       list: ["个性推荐", "歌单", "主播电台", "排行榜", "歌手", "最新音乐"],
-      albums: null, //轮播图数据
+      banner: null, //轮播图数据
       limit: 12, //一次获取的歌单数量
       personalized: null, //保存获取到的推荐歌单
       privateContent: null, //独家放送
@@ -49,16 +50,29 @@ export default {
     newSongs
   },
   created() {
+    /**轮播图数据 */
+    _getBanner().then(res=>{
+      this.banner=res.data.banners.slice(0,6);
+    })
     /**推荐歌单*/
     _getPersonalized(this.limit).then(res => {
       this.personalized = res.data.result;
+      console.log(this.personalized);
+      
     });
 
     /**独家放送*/
     _getPrivateContent().then(res => {
       this.privateContent = res.data;
-      console.log(this.privateContent);
     });
+
+    _getNewSong().then(res=>{
+      this.songList=res.data.result;
+      
+    })
+  },
+  updated(){
+    this.$refs.scroll.refresh();
   },
   methods: {
     imgLoad() {
@@ -67,9 +81,9 @@ export default {
     priImgLoad() {
       this.$refs.scroll.refresh();
     },
-    pullingUp() {
-      console.log("上拉加载更多");
-    }
+    newSongImgLoad(){
+      this.$refs.scroll.refresh();
+    },
   }
 };
 </script>
