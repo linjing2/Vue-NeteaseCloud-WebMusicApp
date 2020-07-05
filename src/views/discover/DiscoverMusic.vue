@@ -3,11 +3,11 @@
     <nav-bar :list="list" />
     <scroll class="discover-scroll" ref="scroll">
       <div class="content">
-        <swiper :banner="banner"/>
+        <swiper :banner="banner" />
         <p>推荐歌单</p>
         <music-list :personList="personalized" @imgLoad="imgLoad" />
         <private-content :pri="privateContent" @priImgLoad="priImgLoad" />
-        <new-songs :songList="songList" @newSongImgLoad="newSongImgLoad"/>
+        <new-songs :songList="songList" @newSongImgLoad="newSongImgLoad" />
       </div>
     </scroll>
   </div>
@@ -15,7 +15,7 @@
 <script>
 import MusicList from "components/content/musiclist/MusicList";
 import Scroll from "components/common/scroll/Scroll";
-import Swiper from "components/common/swiper/Swiper"
+import Swiper from "components/common/swiper/Swiper";
 
 import NavBar from "./childComps/NavBar";
 import PrivateContent from "./childComps/PrivateContent";
@@ -25,7 +25,8 @@ import {
   _getNewSong,
   _getPersonalized,
   _getPrivateContent,
-  _getBanner
+  _getBanner,
+  _getRecommendResource
 } from "network/discover";
 import { debounce } from "assets/common/tool";
 export default {
@@ -37,7 +38,7 @@ export default {
       limit: 12, //一次获取的歌单数量
       personalized: null, //保存获取到的推荐歌单
       privateContent: null, //独家放送
-      songList: null //每日新歌
+      songList: null ,//每日新歌
     };
   },
   components: {
@@ -51,14 +52,12 @@ export default {
   },
   created() {
     /**轮播图数据 */
-    _getBanner().then(res=>{
-      this.banner=res.data.banners.slice(0,6);
-    })
+    _getBanner().then(res => {
+      this.banner = res.data.banners.slice(0, 6);
+    });
     /**推荐歌单*/
     _getPersonalized(this.limit).then(res => {
       this.personalized = res.data.result;
-      console.log(this.personalized);
-      
     });
 
     /**独家放送*/
@@ -66,12 +65,11 @@ export default {
       this.privateContent = res.data;
     });
 
-    _getNewSong().then(res=>{
-      this.songList=res.data.result;
-      
-    })
+    _getNewSong().then(res => {
+      this.songList = res.data.result;
+    });
   },
-  updated(){
+  updated() {
     this.$refs.scroll.refresh();
   },
   methods: {
@@ -81,9 +79,9 @@ export default {
     priImgLoad() {
       this.$refs.scroll.refresh();
     },
-    newSongImgLoad(){
+    newSongImgLoad() {
       this.$refs.scroll.refresh();
-    },
+    }
   }
 };
 </script>

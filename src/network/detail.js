@@ -10,6 +10,31 @@ export function _getMusicListDetail(id){
     })
 }
 
+/**对歌单发表评论 */
+export  function _pushCommend(cookie,id,content){
+    return request({
+        url:'/comment',
+        params:{
+            cookie:cookie,
+            t:1,
+            type:2,
+            id:id,
+            content:content,
+        }
+    })
+}
+
+/**获取歌单收藏者 */
+export function _getSub(id,limit){
+    return request({
+        url:'/playlist/subscribers',
+        params:{
+            id:id,
+            limit
+        }
+    })
+}
+
 /**歌单评论信息 */
 export function _getRecommends(id,limit){
     return request({

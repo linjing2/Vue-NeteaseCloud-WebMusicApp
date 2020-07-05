@@ -10,6 +10,7 @@ const state={
   SongList:null,//用户歌单
   recommendResouce:null,//每日推荐歌单
   uid:null,
+  cookie:''
 };
 export default new Vuex.Store({
   state,
@@ -25,6 +26,8 @@ export default new Vuex.Store({
     addUser(state,obj){
       state.user=obj;
       state.uid=state.user.profile.userId;
+      state.cookie=obj.cookie;
+      
       _getSongList(state.uid).then(res=>{
         state.SongList=res.data.playlist; 
       });

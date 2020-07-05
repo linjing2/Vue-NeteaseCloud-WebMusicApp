@@ -3,8 +3,9 @@
    <scroll class="detail-scroll">
         <detail-base-info :baseInfo="baseInfo" />
     <detail-bar :list="list" @detailBarClick="detailBarClick"/>
-    <music-item :musiclist="musiclist" v-if="isShow=='music'"/>
-    <recommends :recommends="recommends" v-if="isShow=='recommend'"/>
+    <music-item :musiclist="musiclist" v-show="isShow=='music'"/>
+    <recommends :recommends="recommends" :id="id" v-show="isShow=='recommend'"/>
+    <music-list-live v-show="isShow=='sub'" :subs="subs"/>
    </scroll>
   </div>
 </template>
@@ -15,8 +16,9 @@ import DetailBaseInfo from "./childComps/DetailBanseInfo";
 import DetailBar from "./childComps/DetailBar";
 import MusicItem from "./childComps/MusicItem";
 import Recommends from "./childComps/Recommends"
+import MusicListLive from "./childComps/MusicListLive"
 
-import { _getMusicListDetail, baseInfo, _getSongsDetail,songDetail ,_getRecommends} from "network/detail";
+import { _getMusicListDetail, baseInfo, _getSongsDetail,songDetail ,_getRecommends,_getSub} from "network/detail";
 export default {
   name: "MusicListDetail",
   data() {
@@ -28,7 +30,8 @@ export default {
       musiclist:[], //歌单歌曲
       isShow:'music',
       recommends:null,
-      limit:20
+      limit:20,
+      subs:null
     };
   },
   components: {
@@ -37,7 +40,8 @@ export default {
     DetailBaseInfo,
     DetailBar,
     MusicItem,
-    Recommends
+    Recommends,
+    MusicListLive
   },
   created() {
     this.id = this.$route.params.id;
@@ -60,10 +64,12 @@ export default {
       /**获取歌单评论 */
         _getRecommends(this.id,this.limit).then(res=>{
            this.recommends=res.data.comments;
-           console.log(this.recommends);
-           
         })
-        
+
+        /**获取歌单收藏者 */
+        _getSub(this.id,30).then(res=>{
+          this.subs=res.data.subscribers;
+        })
     });
   },
   methods:{

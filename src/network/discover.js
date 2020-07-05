@@ -31,13 +31,12 @@ export function _getNewSong(){
 }
 
 /**获取每日推荐歌单  目前有错：需要登陆*/
-export function _getRecommendResource(config){
-    console.log(config);
-    
+export function _getRecommendResource(cookie,uid){
     return request({
-        url:'/recommend/resource',
+        url:'/recommend/songs',
         params:{
-            uid:config
+            cookie:cookie,
+            uid:uid
         }
     })
 }

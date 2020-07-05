@@ -52,6 +52,7 @@ export default {
               else{
                   this.$store.commit('addUser',res.data);
                   this.hiddenLogin();
+                  this.$bus.$emit('pullResource',res.data.cookie);
               }
           })
       },

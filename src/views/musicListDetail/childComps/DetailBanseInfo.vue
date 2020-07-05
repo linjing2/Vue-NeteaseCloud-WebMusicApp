@@ -8,31 +8,43 @@
         <span class="icon">歌单</span>
         <span>{{baseInfo.name}}</span>
         <div class="right">
-            <table><tr>
-                <td>歌曲数<br>{{baseInfo.trackCount}}</td>
-                <td>播放量<br>{{baseInfo.playCount}}</td>
-            </tr></table>
+          <table>
+            <tr>
+              <td>
+                歌曲数
+                <br />
+                {{baseInfo.trackCount}}
+              </td>
+              <td>
+                播放量
+                <br />
+                {{baseInfo.playCount}}
+              </td>
+            </tr>
+          </table>
         </div>
       </div>
 
       <div class="center">
         <div class="bofang">
-            <img src="~assets/img/playmusic/bofang.svg" alt />
-             播放全部
+          <img src="~assets/img/playmusic/bofang.svg" alt />
+          播放全部
         </div>
         <div class="sub">
-            <img src="~assets/img/detail/add.svg" alt />
-             收藏({{baseInfo.subscribedCount}})
+          <img src="~assets/img/detail/add.svg" alt />
+          收藏({{baseInfo.subscribedCount}})
         </div>
         <div class="share">
-            <img src="~assets/img/detail/share.svg" alt />
-            分享({{baseInfo.shareCount}})</div>
+          <img src="~assets/img/detail/share.svg" alt />
+          分享({{baseInfo.shareCount}})
+        </div>
       </div>
       <div class="desc">
-          <div class="biaoqian">标签：<span>{{baseInfo.tags}}</span></div>
-          <div class="desc-item">
-              {{baseInfo.title}}
-          </div>
+        <div class="biaoqian">
+          标签：
+          <span>{{baseInfo.tags}}</span>
+        </div>
+        <div class="desc-item">{{baseInfo.title}}</div>
       </div>
     </div>
   </div>
@@ -93,31 +105,36 @@ export default {
 .center .bofang {
   background: #cd2929;
 }
-.center img{
-   width: 18px;
-   height: 18px;
-   vertical-align: -4px;
+.center img {
+  width: 18px;
+  height: 18px;
+  vertical-align: -4px;
 }
-.desc{
-    position: absolute;
-    bottom: 0px;
-    color: #dcdde4;
+.desc {
+  position: absolute;
+  bottom: 0px;
+  color: #dcdde4;
 }
-.desc div{
-    padding: 5px 0px;
+.desc div {
+  padding: 5px 0px;
 }
-.desc span{
-    color: #2e6bb0;
+.desc span {
+  color: #2e6bb0;
 }
-.top .right{
-    height: 30px;
-    float: right;
-
+.top .right {
+  height: 30px;
+  float: right;
 }
-.right td{
-    text-align: center;
-    font-size: 12px;
-    padding:5px ;
-    color: #4e4e52;
+.right td {
+  text-align: center;
+  font-size: 12px;
+  padding: 5px;
+  color: #4e4e52;
+}
+.desc .desc-item {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>

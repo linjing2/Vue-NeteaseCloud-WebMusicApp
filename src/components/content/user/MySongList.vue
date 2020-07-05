@@ -1,6 +1,6 @@
 <template>
     <div class="song" >
-         <dd v-for="(item,index) in getSongList" :key="index">
+         <dd v-for="(item,index) in getSongList" :key="index" @click="enterDetail(index)">
           <div>
             <img :src="item.coverImgUrl" alt />
           </div>
@@ -20,6 +20,16 @@ export default {
         getSongList(){
             return this.songList=this.$store.state.SongList;
         }
+    },
+    methods:{
+      enterDetail(index){
+        this.$router.push({
+          url:'/musiclistdetail',
+          params:{
+            id:this.songList[index].id
+          }
+        })
+      }
     }
 }
 </script>

@@ -73,12 +73,21 @@ export default {
     };
   },
   components:{
-    MySongList
+    getUid(){
+      let uid=this.$store.state.uid;
+      if(uid!=null&&uid!=''){
+        return uid;
+      }
+      else{
+        this.$Message.warning('请先登陆');
+        return ;
+      }
+    }
   },
   methods: {
     checkClick(index) {
         if(this.list[index].image=='')return;
-      this.currentIndex = index;
+        this.currentIndex = index;
     }
   }
 };
