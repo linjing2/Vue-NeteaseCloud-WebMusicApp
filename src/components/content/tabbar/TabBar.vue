@@ -1,6 +1,6 @@
 <template>
   <div class="tabbar">
-    <div class="logo">
+    <div class="logo" @click="backHome()">
       <img src="~assets/img/content/logo.svg" alt />
       <div class="title">小符音乐</div>
     </div>
@@ -55,11 +55,16 @@ export default {
     getUserName(){
       if(this.$store.state.user==null)return this.statu;
       return this.statu=this.$store.state.user&&this.$store.state.user.profile.nickname;
-    }
+    },
   },
   methods: {
     showLogin() {
       this.$store.commit("showLogin");
+    },
+    backHome(){
+      if(this.$route.path=='/discover')return ;
+      
+      this.$router.push('/discover')
     }
   }
 };
@@ -71,6 +76,7 @@ export default {
   background-color: #202023;
 }
 .logo {
+  cursor: pointer;
   height: 100%;
   width: 150px;
   line-height: 100%;

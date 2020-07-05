@@ -69,6 +69,11 @@ export default {
       this.songList = res.data.result;
     });
   },
+  mounted(){
+    this.$bus.$on('pullResource',cookie=>{
+         this.personalized.pop();
+      })
+  },
   updated() {
     this.$refs.scroll.refresh();
   },

@@ -19,16 +19,12 @@ export default {
     computed:{
         getSongList(){
             return this.songList=this.$store.state.SongList;
-        }
+        },
     },
     methods:{
       enterDetail(index){
-        this.$router.push({
-          url:'/musiclistdetail',
-          params:{
-            id:this.songList[index].id
-          }
-        })
+        console.log(this.songList[index].id);
+        this.$router.push("/musiclistdetail/" + this.songList[index].id+"/"+new Date().getTime());
       }
     }
 }

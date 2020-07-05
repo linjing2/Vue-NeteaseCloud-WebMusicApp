@@ -41,17 +41,19 @@ export default {
   data() {
     return {
       isShow:false,
+      cookie:null,
     };
   },
   mixins: [imgLoadMixin,detailMixin],
-  created() {
-      if(this.$store.state.cookie!=''&&this.$store.state.cookie!=null){
+  mounted(){
+     if(this.$store.state.cookie!=''&&this.$store.state.cookie!=null){
           this.isShow=true;
       }
-      this.$bus.$on('pullResource',cookie=>{
-          this.isShow=true;
-          this.personList.pop();
+       this.$bus.$on('pullResource',cookie=>{
+         this.isShow=true;
+         this.personList.pop();
       })
+      console.log(this.$store.state.cookie);
   },
   methods: {
     imgLoad() {
@@ -60,7 +62,7 @@ export default {
       this.imgCount++;
     },
     enterDetail(index) {
-      this.$router.push("/musiclistdetail/" + this.personList[index].id);
+      this.$router.push("/musiclistdetail/" + this.personList[index].id+"/"+new Date().getTime());
     },
     enterDayDetail(){
         this.$router.push('/daymusic');

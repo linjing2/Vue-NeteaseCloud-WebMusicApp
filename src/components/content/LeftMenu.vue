@@ -17,6 +17,9 @@
 import MySongList from 'components/content/user/MySongList'
 export default {
   name: "LeftMenu",
+  components:{
+    MySongList
+  },
   data() {
     return {
       list: [
@@ -27,7 +30,7 @@ export default {
           title: "发现音乐"
         },
         {
-          link: "",
+          link: "/test",
           image: require("assets/img/leftmenu/fm.svg"),
           title: "私人FM"
         },
@@ -63,26 +66,9 @@ export default {
           title: "我的音乐云盘"
         },
         { link: "", image: "", title: "创建的歌单" },
-        {
-          link: "",
-          image: require("assets/img/leftmenu/live.svg"),
-          title: "我喜欢的音乐"
-        }
       ],
       currentIndex: 1
     };
-  },
-  components:{
-    getUid(){
-      let uid=this.$store.state.uid;
-      if(uid!=null&&uid!=''){
-        return uid;
-      }
-      else{
-        this.$Message.warning('请先登陆');
-        return ;
-      }
-    }
   },
   methods: {
     checkClick(index) {

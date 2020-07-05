@@ -61,6 +61,8 @@ export default {
             this.musiclist.push(song)
         });
       }
+      console.log(this.musiclist);
+      
       /**获取歌单评论 */
         _getRecommends(this.id,this.limit).then(res=>{
            this.recommends=res.data.comments;
