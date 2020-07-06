@@ -10,11 +10,17 @@ const state={
   SongList:null,//用户歌单
   recommendResouce:null,//每日推荐歌单
   uid:null,
-  cookie:''
+  cookie:'',
+  playlist:[]
 };
 export default new Vuex.Store({
   state,
   mutations:{
+    addPlayList(state,list){
+      state.playlist=list
+      console.log(state.playlist);
+      
+    },
     /**登陆界面显示与隐藏 */
     showLogin(state){
       state.isShowLogin=true;

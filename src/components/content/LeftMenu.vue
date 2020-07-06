@@ -23,9 +23,9 @@ export default {
   data() {
     return {
       list: [
-        { link: "/discover", image: "", title: "推荐" },
+        { link: "", image: "", title: "推荐" },
         {
-          link: "",
+          link: "/discover",
           image: require("assets/img/leftmenu/music-line.svg"),
           title: "发现音乐"
         },

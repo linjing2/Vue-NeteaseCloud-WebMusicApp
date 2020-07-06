@@ -10,6 +10,26 @@ export function _getMusicListDetail(id){
     })
 }
 
+/**获取歌曲url */
+export function _getMusicUrl(id){
+    return request({
+        url:'/song/url',
+        params:{
+            id:id
+        }
+    })
+}
+
+/**获取歌词 */
+export function _getLyric(id){
+    return request ({
+        url:'/lyric',
+        params:{
+            id:id
+        }
+    })
+}
+
 /**对歌单发表评论 */
 export  function _pushCommend(cookie,id,content){
     return request({
@@ -62,6 +82,7 @@ export class songDetail{
         this.name=songs[0].name;
         this.album=songs[0].al.name;
         this.song=songs[0].ar[0].name;
+        this.pic=songs[0].al.picUrl;
         this.time=formatDate(new Date(songs[0].dt),'mm:ss')
     }
 }

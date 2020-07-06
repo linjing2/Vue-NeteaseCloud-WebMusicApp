@@ -26,8 +26,8 @@
       </div>
 
       <div class="center">
-        <div class="bofang">
-          <img src="~assets/img/playmusic/bofang.svg" alt />
+        <div class="bofang"  @click="allPlay()">
+          <img src="~assets/img/playmusic/bofang.svg" alt/>
           播放全部
         </div>
         <div class="sub">
@@ -58,8 +58,13 @@ export default {
       default() {
         return {};
       }
+    },
+  },
+    methods:{
+      allPlay(){
+        this.$emit("allPlay");
+      }
     }
-  }
 };
 </script>
 <style scoped>
