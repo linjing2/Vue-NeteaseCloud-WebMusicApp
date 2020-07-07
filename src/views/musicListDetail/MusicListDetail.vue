@@ -89,31 +89,29 @@ export default {
       this.isShow = str;
     },
     allPlay() {
-      // let musiclist = this.musiclist;
-      // let url=null,lyric=null;
+      let musiclist = this.musiclist;
+      let url=null,lyric=null;
 
-      // for (let i = 0, length = musiclist.length; i < length; i++) {
+      for (let i = 0, length = musiclist.length; i < length; i++) {
        
-      //   let getUrl=_getMusicUrl(musiclist[i].id).then(res => {
-      //     url = res.data.data[0].url;
-      //      return url;
-      //   });
-      //   let getLyric=_getLyric(musiclist[i].id).then(res => {
-      //     lyric = res.data.tlyric.lyric;
-      //     return lyric;
-      //   });
-      //    Promise.all([getUrl,getLyric]).then(results=>{
-      //      /**里面有的url没有值 */
-      //       let song=new playList(i,musiclist[i],results[0],results[1]);
-      //       this.playlist.push(song);
-      //    }).catch(err=>{
-      //      this.$Message.error('播放失败，请刷新后重试');
-      //    })
-      // }
-      console.log(this.musiclist[0]);
-      
+        let getUrl=_getMusicUrl(musiclist[i].id).then(res => {
+          url = res.data.data[0].url;
+           return url;
+        });
+        let getLyric=_getLyric(musiclist[i].id).then(res => {
+          lyric = res.data.tlyric.lyric;
+          return lyric;
+        });
+         Promise.all([getUrl,getLyric]).then(results=>{
+           /**里面有的url没有值 */
+            let song=new playList(i,musiclist[i],results[0],results[1]);
+            this.playlist.push(song);
+         }).catch(err=>{
+           this.$Message.error('播放失败，请刷新后重试');
+         })
+      }
       // this.$store.commit('addPlayList',this.playlist);
-      this.$bus.$emit('playMusic',this.musiclist);
+      this.$bus.$emit('playMusic',this.playlist);
     }
   }
 };

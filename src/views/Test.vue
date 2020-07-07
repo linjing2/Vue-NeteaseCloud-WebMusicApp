@@ -1,14 +1,13 @@
 <template>
     <div class="test">
-        <play-music/>
+        TEST
     </div>
 </template>
 <script>
-import PlayMusic from "components/content/playmusic/PlayMusic"
 export default {
     name:'Test',
     components:{
-        PlayMusic
+
     }
 }
 </script>

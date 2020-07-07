@@ -10,14 +10,14 @@
 import TabBar from 'components/content/tabbar/TabBar'
 import LeftMenu from 'components/content/LeftMenu'
 import Main from 'components/content/Main'
-import PlayMusic from 'components/content/playmusic/PlayMusic'
+import PlayMusic from "components/content/playmusic/PlayMusic"
 export default {
   name:'App',
   components:{
     TabBar,
     LeftMenu,
     Main,
-    PlayMusic,
+    PlayMusic
   }
 }
 </script>

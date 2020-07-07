@@ -20,7 +20,7 @@ export default {
 <style scoped>
 .main{
   width: calc(100% - 15%);
-  height: calc(100% - 54px - 80px);
+  height: calc(100% - 54px - 59px);
   margin-left: 15%;
   position:relative;
 }
