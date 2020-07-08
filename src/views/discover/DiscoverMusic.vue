@@ -51,6 +51,9 @@ export default {
     newSongs
   },
   created() {
+      if(this.$store.state.cookie!=null&&this.$store.state.cookie!=''){
+        this.limit=11;
+      }
     /**轮播图数据 */
     _getBanner().then(res => {
       this.banner = res.data.banners.slice(0, 6);
@@ -69,11 +72,6 @@ export default {
       this.songList = res.data.result;
     });
   },
-  mounted(){
-    this.$bus.$on('pullResource',cookie=>{
-         this.personalized.pop();
-      })
-  },
   updated() {
     this.$refs.scroll.refresh();
   },
@@ -86,7 +84,7 @@ export default {
     },
     newSongImgLoad() {
       this.$refs.scroll.refresh();
-    }
+    },
   }
 };
 </script>

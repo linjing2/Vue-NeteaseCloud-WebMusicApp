@@ -1,9 +1,9 @@
 <template>
   <div class="detail">
     <scroll class="detail-scroll">
-      <detail-base-info :baseInfo="baseInfo" @allPlay="allPlay()" />
+      <detail-base-info :baseInfo="baseInfo" @allPlay="PlayMusic()" />
       <detail-bar :list="list" @detailBarClick="detailBarClick" />
-      <music-item :musiclist="musiclist" v-show="isShow=='music'" />
+      <music-item :musiclist="musiclist" v-show="isShow=='music'" @musicItemClick="PlayMusic"/>
       <recommends :recommends="recommends" :id="id" v-show="isShow=='recommend'" />
       <music-list-live v-show="isShow=='sub'" :subs="subs" />
     </scroll>
@@ -25,10 +25,8 @@ import {
   songDetail,
   _getRecommends,
   _getSub,
-  _getMusicUrl,
-  _getLyric
 } from "network/detail";
-import { playList } from "components/content/playmusic/playList";
+import {indexMixin} from "./indexMixin"
 export default {
   name: "MusicListDetail",
   data() {
@@ -41,8 +39,7 @@ export default {
       isShow: "music",
       recommends: null,
       limit: 20,
-      subs: null,
-      playlist:[],
+      subs: null
     };
   },
   components: {
@@ -54,6 +51,7 @@ export default {
     Recommends,
     MusicListLive
   },
+  mixins:[indexMixin],
   created() {
     this.id = this.$route.params.id;
 
@@ -88,31 +86,6 @@ export default {
     detailBarClick(str) {
       this.isShow = str;
     },
-    allPlay() {
-      let musiclist = this.musiclist;
-      let url=null,lyric=null;
-
-      for (let i = 0, length = musiclist.length; i < length; i++) {
-       
-        let getUrl=_getMusicUrl(musiclist[i].id).then(res => {
-          url = res.data.data[0].url;
-           return url;
-        });
-        let getLyric=_getLyric(musiclist[i].id).then(res => {
-          lyric = res.data.tlyric.lyric;
-          return lyric;
-        });
-         Promise.all([getUrl,getLyric]).then(results=>{
-           /**里面有的url没有值 */
-            let song=new playList(i,musiclist[i],results[0],results[1]);
-            this.playlist.push(song);
-         }).catch(err=>{
-           this.$Message.error('播放失败，请刷新后重试');
-         })
-      }
-      // this.$store.commit('addPlayList',this.playlist);
-      this.$bus.$emit('playMusic',this.playlist);
-    }
   }
 };
 </script>

@@ -12,7 +12,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(item,index) in musiclist" :key="index" :class="{backColor:setBackColor(index)}">
+                <tr v-for="(item,index) in musiclist" :key="index" :class="{backColor:setBackColor(index)}"
+                @dblclick="musicItemClick(index)">
                     <td>{{setSerial(index)}}</td>
                     <td>
                         <img src="~assets/img/leftmenu/live.svg" alt="" class="live">
@@ -48,6 +49,9 @@ export default {
                 return true;
             }
             return false;
+        },
+        musicItemClick(index){
+            this.$emit('musicItemClick',index);
         }
     },
 }
@@ -68,6 +72,7 @@ width: 100%;
 }
 .music tr:hover{
     background-color: #2c2e32;
+    color: #fff;
 }
 .music tr td{
     border: 1px solid #23262c;

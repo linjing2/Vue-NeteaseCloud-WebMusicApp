@@ -26,8 +26,8 @@
       </div>
 
       <div class="center">
-        <div class="bofang"  @click="allPlay()">
-          <img src="~assets/img/playmusic/bofang.svg" alt/>
+        <div class="bofang" @click="allPlay()">
+          <img src="~assets/img/playmusic/bofang.svg" alt />
           播放全部
         </div>
         <div class="sub">
@@ -50,6 +50,7 @@
   </div>
 </template>
 <script>
+import { baseMixin } from "../baseMixin";
 export default {
   name: "DetailBaseInfo",
   props: {
@@ -58,13 +59,9 @@ export default {
       default() {
         return {};
       }
-    },
-  },
-    methods:{
-      allPlay(){
-        this.$emit("allPlay");
-      }
     }
+  },
+  mixins: [baseMixin]
 };
 </script>
 <style scoped>

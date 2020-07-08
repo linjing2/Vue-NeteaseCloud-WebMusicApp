@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="center">
-          <div class="bofang">
+          <div class="bofang" @click="allPlay()">
           <img src="~assets/img/playmusic/bofang.svg" alt />
           播放全部
         </div>
@@ -23,9 +23,15 @@
 </template>
 <script>
 import { detailMixin } from "assets/common/mixin";
+import {baseMixin} from "../baseMixin"
 export default {
     name:'DayBaseInfo',
-      mixins: [detailMixin],
+      mixins: [detailMixin,baseMixin],
+      methods:{
+        allPlay(){
+        this.$emit("allPlay");
+      }
+      }
 }
 </script>
 <style scoped>

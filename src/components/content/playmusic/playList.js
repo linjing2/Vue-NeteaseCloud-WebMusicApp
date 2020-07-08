@@ -1,5 +1,5 @@
 export class playList{
-    constructor(index,song,url,lrc) {
+    constructor(index,song,url='',lrc='') {
       this.index=index;
       this.title=song.name;
       this.artist=song.song;

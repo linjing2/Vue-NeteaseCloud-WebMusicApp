@@ -51,7 +51,6 @@ export default {
       }
        this.$bus.$on('pullResource',cookie=>{
          this.isShow=true;
-         this.personList.pop();
       })
       console.log(this.$store.state.cookie);
   },

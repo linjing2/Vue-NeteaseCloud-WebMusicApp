@@ -43,26 +43,27 @@
   </div>
 </template>
 <script>
-import {_Swiper} from './indexSwiper'
+import { _Swiper } from "./indexSwiper";
 export default {
-  name:'Swiper',
-  props:{
-    banner:{
-      type:Array,
-      default(){
-        return []
+  name: "Swiper",
+  props: {
+    banner: {
+      type: Array,
+      default() {
+        return [];
       }
     }
   },
-  updated(){
-   if(this.$refs.swiper!=null){
+  updated() {
+    if (this.$refs.swiper != null) {
       _Swiper(this.$refs.swiper);
-   }
-  },
+    }
+  }
 };
 </script>
 <style scoped>
 .swiper {
+  cursor: pointer;
   width: 1000px;
   height: 214px;
   margin: 0px auto;
@@ -82,9 +83,9 @@ export default {
   position: absolute;
   width: 500px;
 }
-.imgBox li img{
-    width: 100%;
-    }
+.imgBox li img {
+  width: 100%;
+}
 .lineBar {
   height: 30px;
   display: flex;
@@ -94,7 +95,7 @@ export default {
   z-index: 2;
   left: 0;
   right: 0;
-  bottom: 5px; 
+  bottom: 5px;
   margin: auto;
 }
 

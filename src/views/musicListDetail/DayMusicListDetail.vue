@@ -1,8 +1,8 @@
 <template>
   <div class="daydetail">
     <scroll class="day-scroll">
-      <day-base-info />
-      <music-item :musiclist="musiclist" />
+      <day-base-info @allPlay="PlayMusic" />
+      <music-item :musiclist="musiclist" @musicItemClick="PlayMusic"/>
     </scroll>
   </div>
 </template>
@@ -12,7 +12,11 @@ import Scroll from "components/common/scroll/Scroll";
 import DayBaseInfo from "./childComps/DayBaseInfo";
 import MusicItem from "./childComps/MusicItem";
 import { _getRecommendResource } from "network/discover";
-import { _getSongsDetail, songDetail } from "network/detail";
+import {
+  _getSongsDetail,
+  songDetail,
+} from "network/detail";
+import {indexMixin} from "./indexMixin"
 export default {
   name: "DayMusicListDetail",
   data() {
@@ -27,22 +31,20 @@ export default {
   },
   created() {
     let cookie = this.$store.state.cookie;
-     if (cookie != "" && cookie != null) {
-         _getRecommendResource(cookie, this.$store.state.uid).then(res => {
-          for (let i of res.data.data.dailySongs) {
-            _getSongsDetail(i.id).then(res => {
-              let song = new songDetail(res.data.songs);
-              this.musiclist.push(song);
-            });
-          }
-          console.log(this.musiclist);
-          
-         })
-     }
-    console.log(cookie);
+    if (cookie != "" && cookie != null) {
+      _getRecommendResource(cookie, this.$store.state.uid).then(res => {
+        for (let i of res.data.data.dailySongs) {
+          _getSongsDetail(i.id).then(res => {
+            let song = new songDetail(res.data.songs);
+            this.musiclist.push(song);
+          });
+        }
+        console.log(this.musiclist);
+      });
+    }
     console.log(this.$store.state.uid);
-
-  }
+  },
+  mixins:[indexMixin]
 };
 </script>
 <style scoped>
