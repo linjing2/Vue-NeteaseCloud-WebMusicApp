@@ -1,90 +1,44 @@
 <template>
   <div class="discover">
-    <nav-bar :list="list" />
-    <scroll class="discover-scroll" ref="scroll">
-      <div class="content">
-        <swiper :banner="banner" />
-        <p>推荐歌单</p>
-        <music-list :personList="personalized" @imgLoad="imgLoad" />
-        <private-content :pri="privateContent" @priImgLoad="priImgLoad" />
-        <new-songs :songList="songList" @newSongImgLoad="newSongImgLoad" />
-      </div>
-    </scroll>
+    <nav-bar :list="list" ref="nav"/>
+    <div class="content">
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
+    </div>
   </div>
 </template>
 <script>
-import MusicList from "components/content/musiclist/MusicList";
-import Scroll from "components/common/scroll/Scroll";
-import Swiper from "components/common/swiper/Swiper";
-
 import NavBar from "./childComps/NavBar";
-import PrivateContent from "./childComps/PrivateContent";
-import newSongs from "./childComps/newSongs";
-
-import {
-  _getNewSong,
-  _getPersonalized,
-  _getPrivateContent,
-  _getBanner,
-  _getRecommendResource
-} from "network/discover";
-import { debounce } from "assets/common/tool";
 export default {
   name: "DiscoverMusic",
   data() {
     return {
-      list: ["个性推荐", "歌单", "主播电台", "排行榜", "歌手", "最新音乐"],
-      banner: null, //轮播图数据
-      limit: 12, //一次获取的歌单数量
-      personalized: null, //保存获取到的推荐歌单
-      privateContent: null, //独家放送
-      songList: null ,//每日新歌
+      list: [
+        { link: "/discover/individ", name: "个性推荐" },
+        { link: "/discover/category", name: "歌单" },
+        { link: "/discover/ranklist", name: "排行榜" },
+        { link: "/discover/artist", name: "歌手" },
+        { link: "", name: "最新音乐" },
+         { link: "", name: "主播电台" },
+      ]
     };
   },
   components: {
-    Swiper,
-    MusicList,
-    Scroll,
-
-    NavBar,
-    PrivateContent,
-    newSongs
+    NavBar
   },
-  created() {
-      if(this.$store.state.cookie!=null&&this.$store.state.cookie!=''){
-        this.limit=11;
+  created(){
+    /**解决跳转到其他路由返回时navbar与内容不符的问题 */
+    for(let i in this.list){
+      if(this.list[i].link==this.$route.path){
+        /**如果直接在created中使用子组件的属性或方法，此时子组件可能还没创建，异步解决此问题 */
+        setTimeout(()=>{
+          this.$refs.nav.barClick(i);
+        },100)
+        break;
       }
-    /**轮播图数据 */
-    _getBanner().then(res => {
-      this.banner = res.data.banners.slice(0, 6);
-    });
-    /**推荐歌单*/
-    _getPersonalized(this.limit).then(res => {
-      this.personalized = res.data.result;
-    });
-
-    /**独家放送*/
-    _getPrivateContent().then(res => {
-      this.privateContent = res.data;
-    });
-
-    _getNewSong().then(res => {
-      this.songList = res.data.result;
-    });
-  },
-  updated() {
-    this.$refs.scroll.refresh();
-  },
-  methods: {
-    imgLoad() {
-      this.$refs.scroll.refresh();
-    },
-    priImgLoad() {
-      this.$refs.scroll.refresh();
-    },
-    newSongImgLoad() {
-      this.$refs.scroll.refresh();
-    },
+    }
+    
   }
 };
 </script>
@@ -93,18 +47,16 @@ export default {
   width: 100%;
   height: 100%;
 }
-.discover-scroll {
-  margin-top: 10px;
-  height: calc(100% - 49px);
-  overflow: hidden;
-}
 .swi {
   width: 100%;
   margin-top: 5px;
 }
 .content {
   width: 100%;
+  height: calc(100% - 49px);
+  margin-top: 10px;
   padding: 10px 155px;
+  overflow: hidden;
 }
 .content p {
   font-size: 20px;

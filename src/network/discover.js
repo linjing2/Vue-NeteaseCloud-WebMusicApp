@@ -30,13 +30,51 @@ export function _getNewSong(){
     })
 }
 
-/**获取每日推荐歌单  目前有错：需要登陆*/
+/**获取每日推荐歌单  需要登陆*/
 export function _getRecommendResource(cookie,uid){
     return request({
         url:'/recommend/songs',
         params:{
             cookie:cookie,
             uid:uid
+        }
+    })
+}
+
+/**获取热门歌单 */
+export function _getMusicListHot(){
+    return request({
+        url:'/playlist/hot',
+    })
+}
+
+/**获取不同tag的精品歌单 */
+export function _getHighquality(cat,limit){
+    return request({
+        url:'/top/playlist/highquality',
+        params:{
+            cat:cat,
+            limit:limit,
+            time:new Date().getTime()
+        }
+    })
+}
+
+/**获取排行榜数据 */
+export function _getRankList(){
+    return request({
+        url:'/toplist',
+    })
+}
+
+/**歌手 */
+export function _getArtist(area,type,limit){
+    return request({
+        url:'/artist/list',
+        params:{
+            area:area,
+            type:type,
+            limit:limit
         }
     })
 }

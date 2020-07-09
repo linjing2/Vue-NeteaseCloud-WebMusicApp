@@ -13,7 +13,7 @@
       :key="index"
       @click="enterDetail(index)"
     >
-      <img :src="item.picUrl" alt @load="imgLoad" />
+      <img :src="getImgUrl(item)" alt @load="imgLoad" />
       <div class="title">{{item.name}}</div>
       <div class="count">
         <div>
@@ -55,6 +55,9 @@ export default {
       console.log(this.$store.state.cookie);
   },
   methods: {
+    getImgUrl(item){
+      return item.picUrl||item.coverImgUrl;
+    },
     imgLoad() {
       /**类似于防抖函数功能*/
       if (this.imgCount == this.personList.length) this.$emit("imgLoad");
@@ -74,10 +77,10 @@ export default {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
 }
 .musiclist .list-item {
   position: relative;
+  margin: 5px 6px;
   width: 150px;
   padding-bottom: 10px;
   font-size: 13px;
