@@ -19,7 +19,7 @@ export default {
         { link: "/discover/category", name: "歌单" },
         { link: "/discover/ranklist", name: "排行榜" },
         { link: "/discover/artist", name: "歌手" },
-        { link: "", name: "最新音乐" },
+        { link: "/discover/newsongs", name: "最新音乐" },
          { link: "", name: "主播电台" },
       ]
     };

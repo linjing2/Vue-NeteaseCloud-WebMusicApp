@@ -4,7 +4,8 @@
       class="list-item"
       v-for="(item,index) in artistList"
       :key="index"
-    @click="enterArtistDetail(item)">
+      @click="enterArtistDetail(item)"
+    >
       <img :src="getImgUrl(item)" alt @load="imgLoad" />
       <div class="title">{{item.name}}</div>
     </div>
@@ -24,21 +25,24 @@ export default {
   },
   mixins: [imgLoadMixin],
   methods: {
-    getImgUrl(item){
-      return item.picUrl||item.coverImgUrl;
+    getImgUrl(item) {
+      return item.picUrl || item.coverImgUrl;
     },
     imgLoad() {
       /**类似于防抖函数功能*/
       if (this.imgCount == this.artistList.length) this.$emit("imgLoad");
       this.imgCount++;
     },
-    enterArtistDetail(artist){
-      console.log(artist);
-      
-      this.$router.push('/artist/'+artist.id+'/'+artist.name+'/'
-      +artist.picUrl+'/'+artist.musicSize+'/'+artist.albumSize);
+    enterArtistDetail(artist) {
+      this.$router.push({
+        path: "/artist",
+        query: {
+          artist: artist
+        }
+      });
+      this.$store.commit('addArtist',artist);
     }
-  },
+  }
 };
 </script>
 <style scoped>

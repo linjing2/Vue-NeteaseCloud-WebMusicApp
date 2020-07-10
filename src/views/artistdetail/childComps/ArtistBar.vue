@@ -32,9 +32,9 @@ export default {
     currentClick(index) {
       this.currentIndex = index;
       switch(index){
-          case 0:this.$router.push('/artist/album/'+this.id); break;
-          case 1:this.$router.push('/artist/album/'+this.id); break;
-          case 2:this.$router.push('/artist/album/'+this.id); break;
+          case 0:this.$router.push('/artist/album'); break;
+          case 1:this.$router.push('/artist/desc'); break;
+          case 2:this.$router.push('/artist/simi'); break;
       }
     }
   }

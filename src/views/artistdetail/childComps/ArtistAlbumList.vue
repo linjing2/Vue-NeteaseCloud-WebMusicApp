@@ -1,21 +1,21 @@
 <template>
-  <div class="artist-album" v-if="hotlist.length!==0">
+  <div class="album-list">
     <div class="hot50">
-        <p>热门50首</p>
+      <p>{{album.name}}</p>
       <div class="left">
         <div class="icon">
-          <img :src="hotlist[0].pic" alt />
+          <img :src="album.picUrl" alt />
         </div>
       </div>
       <div class="right">
-        <div class="music" :class="{fold:fold}">
+        <div class="music">
           <table>
             <tbody>
               <tr
-                v-for="(item,index) in hotlist"
+                v-for="(item,index) in musiclist"
                 :key="index"
                 :class="{backColor:setBackColor(index)}"
-                @dblclick="musicItemClick(index)"
+                @dblclick="albumClick(index)"
               >
                 <td>{{setSerial(index)}}</td>
                 <td>
@@ -23,14 +23,10 @@
                   <img src="~assets/img/leftmenu/xiazai.svg" alt class="xiazai" />
                 </td>
                 <td>{{item.name}}</td>
-                <td>{{item.album}}</td>
                 <td>{{item.time}}</td>
               </tr>
             </tbody>
           </table>
-        </div>
-        <div class="toggle-fold" @click="fold=!fold"><span v-if="fold">查看全部50首></span>
-        <span v-if="!fold">收起</span>
         </div>
       </div>
       <!-- 浮动会使元素脱标，在所有浮动元素后面加一个块状元素，并设置clear:both清除浮动造成的父元素高度撑不起来问题 -->
@@ -39,38 +35,62 @@
   </div>
 </template>
 <script>
-import {tableMixin} from 'views/musicListDetail/childComps/tableMixin'
+import { _getAlbum } from "network/artist";
+import { tableMixin } from "views/musicListDetail/childComps/tableMixin";
+import { _getSongsDetail, songDetail } from "network/detail";
+import {indexMixin} from "views/musicListDetail/indexMixin"
 export default {
-  name: "ArtistAlbum",
+  name: "ArtistAlbumList",
   props: {
-    hotlist: {
-      type: Array,
+    album: {
+      type: Object,
       default() {
-        return [];
+        return {};
       }
     }
   },
-  mixins:[tableMixin],
-  data(){
-      return{
-          fold:true
+  data() {
+    return {
+      musiclist: [],
+      fold: true
+    };
+  },
+  mixins: [tableMixin,indexMixin],
+  created() {
+    if (this.album != null) {
+      _getAlbum(this.album.id).then(res => {
+        //   console.log( res.data.songs);
+          
+        for (let i of res.data.songs) {
+          _getSongsDetail(i.id).then(res => {
+            let song = new songDetail(res.data.songs);
+            this.musiclist.push(song);
+          });
+        }
+      });
+    }
+  },
+  methods:{
+      albumClick(index){
+          this.PlayMusic(index);
       }
   }
 };
 </script>
 <style scoped>
-.artist-album {
+.album-list {
   width: 100%;
+  margin-top: 50px;
 }
 .left {
   width: 20%;
   float: left;
 }
 .icon {
-    width: 100%;
+  width: 100%;
 }
-.icon img{
-    width: 60%;
+.icon img {
+  width: 60%;
 }
 .right {
   width: 75%;
@@ -117,6 +137,10 @@ export default {
 .music tbody tr td:nth-child(3) {
   color: #dcdde4;
 }
+.music tbody tr td:nth-child(4) {
+  text-align: right;
+  padding-right: 20px;
+}
 .music tr td .live {
   position: absolute;
   left: 0;
@@ -136,24 +160,16 @@ export default {
 .backColor {
   background: #1a1c20;
 }
-p{
-    font-size: 14px;
-    padding-left: 20%;
-    color: #e5e5e5;
+p {
+  font-size: 14px;
+  padding-left: 20%;
+  color: #dcdde4;
 }
-.clear{
-    clear: both;
+.clear {
+  clear: both;
 }
-.fold{
-    height: 320px;
-    overflow: hidden;
-}
-.toggle-fold{
-    position: absolute;
-    bottom: -30px;
-    color: #828385;
-}
-.toggle-fold:hover{
-    color: whitesmoke;
+.fold {
+  height: 320px;
+  overflow: hidden;
 }
 </style>

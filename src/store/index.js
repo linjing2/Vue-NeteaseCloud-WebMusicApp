@@ -11,7 +11,8 @@ const state={
   recommendResouce:null,//每日推荐歌单
   uid:null,
   cookie:'',
-  playlist:[]
+  playlist:[],
+  artist:null,//歌手信息
 };
 export default new Vuex.Store({
   state,
@@ -37,6 +38,12 @@ export default new Vuex.Store({
       _getSongList(state.uid).then(res=>{
         state.SongList=res.data.playlist; 
       });
+    },
+    /**保存歌手信息 */
+    addArtist(state,artist){
+      state.artist=artist;
+      console.log(state.artist);
+      
     }
   },
   getters:{

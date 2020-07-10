@@ -26,3 +26,34 @@ export function _getArtistAlbum(id){
         }
     })
 }
+
+/**获取专辑内容 */
+export function _getAlbum(id){
+    return request({
+        url:'/album',
+        params:{
+            id:id
+        }
+    })
+}
+
+/**获取歌手描述 */
+export function _getArtistDescDetail(id){
+    return request({
+        url:'/artist/desc',
+        params:{
+            id:id
+        }
+    })
+}
+
+/**获取相识歌手 */
+export function _getSimiArtist(cookie,id){
+    return request({
+        url:'/simi/artist',
+        params:{
+            cookie:cookie,
+            id:id
+        }
+    })
+}

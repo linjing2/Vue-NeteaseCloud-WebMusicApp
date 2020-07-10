@@ -2,10 +2,10 @@
   <div class="newSongs">
     <div class="top">最新音乐</div>
     <div class="content">
-      <div class="item" v-for="(item,index) in songList" :key="index">
+      <div class="item" v-for="(item,index) in songList" :key="index" @dblclick="playMusic(index)">
         <div class="number">{{index+1}}</div>
         <div class="title">
-          <img :src="item.picUrl" alt @load="newSongImgLoad"/>
+          <img :src="item.picUrl" alt @load="newSongImgLoad" />
           <div class="icon">
             <img src="~assets/img/playmusic/bofang.svg" alt />
           </div>
@@ -20,7 +20,7 @@
   </div>
 </template>
 <script>
-import {imgLoadMixin} from 'assets/common/mixin'
+import { imgLoadMixin } from "assets/common/mixin";
 export default {
   name: "newSongs",
   props: {
@@ -31,13 +31,16 @@ export default {
       }
     }
   },
-  mixins:[imgLoadMixin],
-  methods:{
-      newSongImgLoad(){
-            /**类似于防抖函数功能*/
-           if(this.imgCount==this.songList.length)this.$emit('newSongImgLoad');
-           this.imgCount++;
-        }
+  mixins: [imgLoadMixin],
+  methods: {
+    newSongImgLoad() {
+      /**类似于防抖函数功能*/
+      if (this.imgCount == this.songList.length) this.$emit("newSongImgLoad");
+      this.imgCount++;
+    },
+    playMusic(index) {
+      this.$emit("playMusic", index);
+    }
   }
 };
 </script>

@@ -42,12 +42,8 @@ export default {
         songItem
     },
     created(){
-        console.log('rank');
-        
         _getRankList().then(res=>{
             this.ranklist=res.data.list;
-            console.log(this.ranklist);
-            
         })
     },
     mixins:[indexMixin]

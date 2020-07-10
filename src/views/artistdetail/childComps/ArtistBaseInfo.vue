@@ -1,12 +1,12 @@
 <template>
-  <div class="base" v-if="picUrl!=null">
+  <div class="base" v-if="baseInfo!=null">
     <div class="title">
-      <img :src="picUrl" alt />
+      <img :src="baseInfo.picUrl" alt />
     </div>
     <div class="content">
       <div class="top">
         <span class="icon">歌手</span>
-        <span>{{name}}</span>
+        <span>{{baseInfo.name}}</span>
         <div class="right">
           <table>
             <tr>
@@ -22,11 +22,11 @@
       <div class="center">
         <div class="bofang">
           <img src="~assets/img/leftmenu/music.svg" alt />
-          单曲数：{{musicSize}}
+          单曲数：{{baseInfo.musicSize}}
         </div>
         <div class="sub">
           <img src="~assets/img/artist/album.svg" alt />
-          专辑数：({{baseInfo.albumSize}})
+          专辑数：{{baseInfo.albumSize}}
         </div>
       </div>
       <div class="desc">
@@ -42,36 +42,18 @@
 export default {
   name: "DetailBaseInfo",
   props: {
-    picUrl:{
-      type:String,
+    baseInfo:{
+      type:[Object,Array],
       default(){
-        return ''
-      }
-    },
-     artName:{
-      type:String,
-      default(){
-        return ''
-      }
-    },
-    musicCount:{
-      type:Number,
-      default(){
-        return 0
-      }
-    },
-    albumCount:{
-      type:Number,
-      default(){
-        return 0
+        return {}
       }
     },
     desc:{
-        type:String,
-        default(){
-            return ''
-        }
-    }
+      type:String,
+      default(){
+        return ''
+      }
+    },
   },
 };
 </script>
@@ -124,6 +106,9 @@ export default {
   position: absolute;
   bottom: 0px;
   color: #dcdde4;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .desc div {
   padding: 5px 0px;
@@ -141,11 +126,5 @@ export default {
   padding:5px 10px;
   background: #25272b;
   border-radius: 10px;
-}
-.desc .desc-item {
-  display: block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 </style>
