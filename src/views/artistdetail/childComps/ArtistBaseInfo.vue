@@ -65,6 +65,7 @@ export default {
 .title {
   display: inline-block;
   width: 200px;
+  height: 168px;
 }
 .title img {
   width: 100%;
@@ -86,7 +87,10 @@ export default {
   margin-right: 10px;
 }
 .center {
-  padding-top: 40px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
   display: flex;
   align-items: center;
 }

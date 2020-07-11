@@ -1,10 +1,10 @@
 <template>
-  <div class="play-music" v-if="music.length!==0">
+  <div class="play-music" v-if="music!==null">
     <div class="top">
-      <div class="music-top-icon">
+      <div class="music-top-icon" v-if="music[currentIndex]!=null">
         <img :src="music[currentIndex].pic" alt />
       </div>
-      <div class="music-top-center">
+      <div class="music-top-center" v-if="music[currentIndex]!=null">
         <div class="music-title">{{music[currentIndex].title}}</div>
         <div class="music-artist">{{music[currentIndex].artist}}</div>
       </div>
@@ -21,7 +21,7 @@
         <img src="~assets/img/playmusic/next.png" alt />
       </div>
     </div>
-    <div class="play-music-right">
+    <div class="play-music-right" v-if="music[currentIndex]!=null">
       <audio
         :src="music[currentIndex].src"
         autoplay
@@ -75,6 +75,7 @@ export default {
       duration: "00:00",
       musicProWidth: 0,
       currentIndex: 0,
+      path:'',
       schemaIndex: 0,
       music: [
         {
@@ -94,10 +95,17 @@ export default {
     MusicProgress,
     VolumnProgress
   },
+  watch:{
+    music(){
+      console.log('index hcange');
+      this.$refs.audio.load();
+    }
+  },
   mounted() {
-    this.$bus.$on("playMusic", (list, index) => {
-      console.log("playindex," + list.length + "," + index);
+    this.$bus.$on("playMusic", (list, index,path) => {
+      console.log("playindex," + list.length + "," + index+","+path);
       this.music = [];
+      this.path=path;
       this.music=list;
       //   this.music = list.filter(item => {
       //     return item.src !== "";
@@ -112,12 +120,9 @@ export default {
       for(let i in this.music){
           if(this.music[i].index==index){
               this.currentIndex = i;
-              console.log('_index:'+i);
               break;//break跳出循环------continue跳出本次循环
           }
       }
-      console.log(this.currentIndex);
-      
     });
 
     if (this.$refs.audio.volume !== null && this.$refs.volume_pro !== null) {
@@ -163,6 +168,8 @@ export default {
     /**监听音乐已开始播放 */
     musicPlaying() {
       this.isPlay = true;
+      /**currentIndex并不等于歌单里音乐，music数组里每个属性index才对应歌单里的顺序 */
+      this.$bus.$emit('Playing',this.music[this.currentIndex].index,this.path);
     },
     /**对播放暂停进行监视 */
     musicPause() {

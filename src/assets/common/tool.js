@@ -10,6 +10,26 @@ export function debounce(fn,delay){
   }
 }
 
+/**数组去重 */
+export function distinct(arr){
+  let newArr=[];
+  let isExist=false;
+  for(let i=0,length=arr.length;i<length;i++){
+
+    for(let j=i+1;j<length;j++){
+      if(arr[i].name==arr[j].name){
+        isExist=true;
+        break;
+      }
+    }
+    if(!isExist){
+      newArr.push(arr[i]);
+    }
+    isExist=false;
+  }
+  return newArr;
+}
+
 /**时间格式化函数 */
 export function formatDate(date, fmt) {
   if (/(y+)/.test(fmt)) {

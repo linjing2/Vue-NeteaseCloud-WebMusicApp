@@ -3,6 +3,7 @@ import { playList } from "components/content/playmusic/playList";
 export const indexMixin = {
     methods: {
         PlayMusic(index=0) {
+            let path=this.$route.path;
             let musiclist;
             if(this.musiclist.length>=200){
                 musiclist=this.musiclist.slice(0,199);
@@ -29,8 +30,8 @@ export const indexMixin = {
                         /**每次完成两个网络请求都判断是否满足要求，满足才发送事件 */
     
                         if (i == musiclist.length - 1) {
-                            console.log("emit"+i+','+musiclist.length);
-                            this.$bus.$emit("playMusic", playlist,index);
+                            // console.log("emit"+i+','+musiclist.length,+','+path);
+                            this.$bus.$emit("playMusic", playlist,index,path);
                         }
                     })
                     .catch(err => {

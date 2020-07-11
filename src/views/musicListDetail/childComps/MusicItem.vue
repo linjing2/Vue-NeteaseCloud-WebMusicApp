@@ -14,7 +14,9 @@
             <tbody>
                 <tr v-for="(item,index) in musiclist" :key="index" :class="{backColor:setBackColor(index)}"
                 @dblclick="musicItemClick(index)">
-                    <td>{{setSerial(index)}}</td>
+                    <td :class="{curFont:playIndex==index}">{{setSerial(index)}}
+                        <div class="curPlay" v-show="playIndex==index"><img src="~assets/img/playmusic/currentplay.svg" alt=""></div>
+                    </td>
                     <td>
                         <img src="~assets/img/leftmenu/live.svg" alt="" class="live">
                     <img src="~assets/img/leftmenu/xiazai.svg" alt="" class="xiazai">
@@ -30,6 +32,7 @@
 </template>
 <script>
 import {tableMixin} from './tableMixin'
+import {playMixin} from '../playMixin'
 export default {
     name:'MusicItem',
     props:{
@@ -40,7 +43,7 @@ export default {
             }
         }
     },
-    mixins:[tableMixin]
+    mixins:[tableMixin,playMixin],
 }
 </script>
 <style scoped>
@@ -71,6 +74,7 @@ width: 100%;
 }
 .music tr td:nth-child(1){
     width: 50px;
+    text-align: center;
 }
 .music tr td:nth-child(2){
     width: 80px;
@@ -92,8 +96,14 @@ width: 100%;
 .music tr td .xiazai{
     margin-left: 26px;
 }
-.music tr td:nth-child(6){
+.music tr td:nth-child(4){
+    width: 140px;
+}
+.music tr td:nth-child(5){
     width: 180px;
+}
+.music tr td:nth-child(6){
+    width: 80px;
 }
 .music tbody tr td{
     border: none;

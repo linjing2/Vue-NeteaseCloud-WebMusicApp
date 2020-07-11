@@ -17,7 +17,9 @@
                 :class="{backColor:setBackColor(index)}"
                 @dblclick="albumClick(index)"
               >
-                <td>{{setSerial(index)}}</td>
+                <td :class="{curFont:playIndex==index}">{{setSerial(index)}}
+                        <div class="curPlay" v-show="playIndex==index"><img src="~assets/img/playmusic/currentplay.svg" alt=""></div>
+                    </td>
                 <td>
                   <img src="~assets/img/leftmenu/live.svg" alt class="live" />
                   <img src="~assets/img/leftmenu/xiazai.svg" alt class="xiazai" />
@@ -39,6 +41,7 @@ import { _getAlbum } from "network/artist";
 import { tableMixin } from "views/musicListDetail/childComps/tableMixin";
 import { _getSongsDetail, songDetail } from "network/detail";
 import {indexMixin} from "views/musicListDetail/indexMixin"
+import { playMixin } from "views/musicListDetail/playMixin";
 export default {
   name: "ArtistAlbumList",
   props: {
@@ -55,7 +58,7 @@ export default {
       fold: true
     };
   },
-  mixins: [tableMixin,indexMixin],
+  mixins: [tableMixin,indexMixin,playMixin],
   created() {
     if (this.album != null) {
       _getAlbum(this.album.id).then(res => {
@@ -126,6 +129,7 @@ export default {
 }
 .music tr td:nth-child(1) {
   width: 50px;
+  text-align: center;
 }
 .music tr td:nth-child(2) {
   width: 80px;

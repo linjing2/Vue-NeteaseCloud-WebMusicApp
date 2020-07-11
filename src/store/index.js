@@ -8,7 +8,6 @@ const state={
   isShowLogin:false,
   user:null,//保存用户信息
   SongList:null,//用户歌单
-  recommendResouce:null,//每日推荐歌单
   uid:null,
   cookie:'',
   playlist:[],
@@ -44,7 +43,7 @@ export default new Vuex.Store({
       state.artist=artist;
       console.log(state.artist);
       
-    }
+    },
   },
   getters:{
     getShowLogin(state){

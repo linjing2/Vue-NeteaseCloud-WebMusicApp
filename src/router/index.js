@@ -15,7 +15,8 @@ const ArtistDetail=()=>import('views/artistdetail/ArtistDetail')
 const ArtistAlbum=()=>import('views/artistdetail/childRouter/ArtistAlbum')
 const ArtistDescDetail=()=>import('views/artistdetail/childRouter/ArtistDescDetail')
 const SimiArtist=()=>import('views/artistdetail/childRouter/SimiArtist')
-const Test=()=>import('views/Test')
+
+const SearchList=()=>import('views/search/SearchList')
 
 Vue.use(VueRouter)
 
@@ -86,8 +87,8 @@ Vue.use(VueRouter)
       ]
     },
     {
-      path:'/test',
-      component:Test
+      path:'/search/:key',
+      component:SearchList
     }
 ]
 

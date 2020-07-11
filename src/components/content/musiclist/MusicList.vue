@@ -64,7 +64,7 @@ export default {
       this.imgCount++;
     },
     enterDetail(index) {
-      this.$router.push("/musiclistdetail/" + this.personList[index].id+"/"+new Date().getTime());
+      this.$router.push("/musiclistdetail/" + this.personList[index].id+'/'+new Date().getTime());
     },
     enterDayDetail(){
         this.$router.push('/daymusic');

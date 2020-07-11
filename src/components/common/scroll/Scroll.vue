@@ -23,6 +23,13 @@ export default {
       default(){
         return false
       }
+    },
+    /**是否开启滚动条 */
+    scrollbar:{
+      type:[Boolean,Object],
+      default(){
+        return false
+      }
     }
   },
   data() {
@@ -34,7 +41,8 @@ export default {
     this.scroll = new BScroll(this.$refs.swiper, {
       click: true,
       probeType: this.probeType ,//3时时监听滚动
-      pullUpLoad:this.pullUpLoad//上拉加载更多
+      pullUpLoad:this.pullUpLoad,//上拉加载更多
+      scrollbar:this.scrollbar
     })
      this.scroll.on('scroll', (position) => {//监听滚动
         this.$emit('scroll',position);    

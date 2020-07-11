@@ -1,7 +1,7 @@
 <template>
   <div class="daydetail">
     <scroll class="day-scroll">
-      <day-base-info @allPlay="PlayMusic" />
+      <day-base-info @allPlay="PlayMusic()" />
       <music-item :musiclist="musiclist" @musicItemClick="PlayMusic"/>
     </scroll>
   </div>
@@ -39,12 +39,10 @@ export default {
             this.musiclist.push(song);
           });
         }
-        console.log(this.musiclist);
       });
     }
-    console.log(this.$store.state.uid);
   },
-  mixins:[indexMixin]
+  mixins:[indexMixin],
 };
 </script>
 <style scoped>

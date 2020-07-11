@@ -11,8 +11,6 @@ export const tableMixin={
             return false;
         },
         musicItemClick(index){
-            console.log('mixin');
-            
             this.$emit('musicItemClick',index);
         }
     },

@@ -23,6 +23,7 @@ export default {
 </script>
 <style>
 @import url('./assets/css/base.css');
+@import url('./assets/css/play.css');
 #app {
   width: 100%;
   height: 100vh;

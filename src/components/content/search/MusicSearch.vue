@@ -1,30 +1,52 @@
 <template>
-    <div class="search">
+    <div class="search"  @mouseleave="leave()">
         <div class="search-item">
             <form>
-                <input type="text" class="mess">
+                <input type="text" class="mess" @focus="focus()">
             </form>
             <div class="search-icon">
                 <img src="~assets/img/content/search.svg" alt="">
             </div>
         </div>
+        <hot-search :searchlist="searchlist" v-show="isShow" @del="del"/>
     </div>
 </template>
 <script>
+import HotSearch from './hotSearch'
 export default {
-    name:'MusicSearch'
+    name:'MusicSearch',
+    data(){
+        return {
+            searchlist:['灰熊','十年','游戏一场空'],
+            isShow:false
+        }
+    },
+    components:{
+        HotSearch
+    },
+    methods:{
+        focus(){
+            this.isShow=true;
+        },
+        leave(){
+            this.isShow=false;
+        },
+        del(){
+            this.searchlist=[];
+        }
+    }
 }
 </script>
 <style scoped>
 .search{
     height: 100%;
     width: 230px;
-    line-height: 54px;
     margin-left: 100px;
     display: inline-block;
     position: relative;
 }
 .search-item{
+        line-height: 54px;
     height: 50%;
     width: 100%;
     position: absolute;
