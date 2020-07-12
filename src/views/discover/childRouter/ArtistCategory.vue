@@ -23,27 +23,27 @@
       </div>
     </div>
     <scroll ref="scroll" class="artist-scroll" :pull-up-load="true" @pullingUp="pullingUp">
-        <artist-list :artist-list="artistlist"/>
+      <artist-list :artist-list="artistlist" />
     </scroll>
   </div>
 </template>
 <script>
-import Scroll from "components/common/scroll/Scroll"
-import ArtistList from "../childComps/ArtistList"
+import Scroll from "components/common/scroll/Scroll";
+import ArtistList from "../childComps/ArtistList";
 
-import {_getArtist} from "network/discover"
-import {imgLoad} from "./indexMixin"
-import {debounce} from "assets/common/tool"
-import { indexMixin } from '../../musicListDetail/indexMixin'
+import { _getArtist } from "network/discover";
+import { imgLoad } from "./indexMixin";
+import { debounce } from "assets/common/tool";
+import { indexMixin } from "../../musicListDetail/indexMixin";
 export default {
   name: "ArtistCategory",
   data() {
     return {
       areaIndex: 0,
-      typeIndex:0,
-      limit:30,
-      page:1,
-      artistlist:[],
+      typeIndex: 0,
+      limit: 30,
+      page: 1,
+      artistlist: [],
       area: [
         { value: -1, name: "全部" },
         { value: 7, name: "华语" },
@@ -60,13 +60,13 @@ export default {
       ]
     };
   },
-  components:{
-      Scroll,
-      ArtistList
+  components: {
+    Scroll,
+    ArtistList
   },
-  mixins:[indexMixin],
-  created(){
-      this.getArtist();
+  mixins: [indexMixin],
+  created() {
+    this.getArtist();
   },
   methods: {
     areaClick(index) {
@@ -77,15 +77,27 @@ export default {
       this.typeIndex = index;
       this.getArtist();
     },
-    pullingUp(){
-        debounce(this.getArtist(),1000);
+    pullingUp() {
+      debounce(this.getArtistPullUp(), 1000);
+    },
+    getArtistPullUp() {
+      _getArtist(
+        this.area[this.areaIndex].value,
+        this.type[this.typeIndex].value,
+        this.limit * this.page
+      ).then(res => {
+        this.artistlist = res.data.artists;
+        this.page++;
+      });
     },
     getArtist(){
-        _getArtist(this.area[this.areaIndex].value,this.type[this.typeIndex].value,this.limit*this.page).then(res=>{
-            this.artistlist=res.data.artists;
-            console.log(this.artistlist);
-             this.page++;
-        })
+       _getArtist(
+        this.area[this.areaIndex].value,
+        this.type[this.typeIndex].value,
+        this.limit * this.page
+      ).then(res => {
+        this.artistlist = res.data.artists;
+      });
     }
   }
 };
@@ -112,9 +124,9 @@ export default {
 .action {
   color: #b82525;
 }
-.artist-scroll{
-    height: calc(100% - 55px);
-    overflow: hidden;
-    margin-top: 10px;
+.artist-scroll {
+  height: calc(100% - 55px);
+  overflow: hidden;
+  margin-top: 10px;
 }
 </style>

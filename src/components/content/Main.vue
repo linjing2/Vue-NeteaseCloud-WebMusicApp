@@ -1,6 +1,6 @@
 <template>
     <div class="main">
-        <router-view/>
+            <router-view/>
         <login class="login" v-show="$store.getters.getShowLogin"/>
     </div>
 </template>

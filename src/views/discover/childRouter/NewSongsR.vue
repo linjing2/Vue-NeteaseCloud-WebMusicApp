@@ -74,7 +74,6 @@ export default {
   },
   mixins: [tableMixin,indexMixin],
   created() {
-    console.log("new");
     this.getTopSongs();
   },
   methods: {
@@ -95,7 +94,6 @@ export default {
             this.musiclist.push(song);
           });
         }
-        console.log(this.musiclist);
         
         this.page++;
         this.$refs.scroll.finishPullUp();

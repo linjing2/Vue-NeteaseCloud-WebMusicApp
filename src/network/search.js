@@ -17,3 +17,13 @@ export function _Search(key){
         }
     })
 }
+
+/**搜索建议 */
+export function _Suggest(keywords){
+    return request({
+        url:'/search/suggest',
+        params:{
+            keywords:keywords
+        }
+    })
+}

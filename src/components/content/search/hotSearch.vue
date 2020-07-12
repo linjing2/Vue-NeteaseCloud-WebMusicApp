@@ -9,7 +9,9 @@
           </div>
         </h3>
         <div class="record-content">
-          <div class="search-item" v-for="(item,index) in searchlist" :key="index">{{item}}</div>
+          <div class="search-item" v-for="(item,index) in searchlist" :key="index" @click="recordClick(index)">
+            {{item}}
+            </div>
         </div>
       </div>
       <div class="hotlist">
@@ -57,7 +59,6 @@ export default {
   created() {
     _hotSearchDetail().then(res => {
       this.hotlist = res.data.data;
-      console.log(this.hotlist);
     });
   },
   methods: {
@@ -67,6 +68,9 @@ export default {
     searchDetail(index){
        this.$router.push('/search/'+this.hotlist[index].searchWord);
        this.$parent.isShow=false;
+    },
+    recordClick(index){
+      this.$emit('recordClick',index);
     }
   }
 };
@@ -79,7 +83,7 @@ export default {
   color: #828385;
   position: absolute;
   top: 54px;
-  z-index: 4;
+  z-index: 999;
   padding: 5px 20px 0px 20px;
   /* overflow: scroll; */
 }

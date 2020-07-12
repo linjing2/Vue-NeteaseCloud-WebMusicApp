@@ -59,7 +59,6 @@ export default {
       this.musicListDetail = res.data;
       /**保存歌单基础信息 */
       this.baseInfo = new baseInfo(this.musicListDetail.playlist);
-      console.log(this.musicListDetail);
       let str = "评论(" + this.musicListDetail.playlist.commentCount + ")";
       this.list = ["歌曲列表", str, "收藏者"];
 

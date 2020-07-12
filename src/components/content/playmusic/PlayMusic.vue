@@ -75,7 +75,7 @@ export default {
       duration: "00:00",
       musicProWidth: 0,
       currentIndex: 0,
-      path:'',
+      path: "",
       schemaIndex: 0,
       music: [
         {
@@ -87,7 +87,7 @@ export default {
             "http://m8.music.126.net/20200708181541/dc873a2b4b00f9a2713fced8afe9cd72/ymusic/obj/w5zDlMODwrDDiGjCn8Ky/2839783247/945a/f45b/fa89/87264bf976128116dd2394e5f97c807a.mp3",
           pic:
             "https://p1.music.126.net/Y3MgpdL1iMno2g0yDnfMXQ==/109951165054657451.jpg"
-        },
+        }
       ]
     };
   },
@@ -95,18 +95,23 @@ export default {
     MusicProgress,
     VolumnProgress
   },
-  watch:{
-    music(){
-      console.log('index hcange');
-      this.$refs.audio.load();
+  watch: {
+    music() {
+      if (this.$refs.audio != null) {
+        this.$refs.audio.load();
+      }
+      // if (this.$refs.volume_pro !== null&&this.$refs.audio!=null) {
+      //   this.$refs.audio.volume = 0.8;
+      //   this.$refs.volume_pro.setProgress(0.8);
+      // }
     }
   },
   mounted() {
-    this.$bus.$on("playMusic", (list, index,path) => {
-      console.log("playindex," + list.length + "," + index+","+path);
+    this.$bus.$on("playMusic", (list, index, path) => {
+      console.log("playindex," + list.length + "," + index + "," + path);
       this.music = [];
-      this.path=path;
-      this.music=list;
+      this.path = path;
+      this.music = list;
       //   this.music = list.filter(item => {
       //     return item.src !== "";
       //   });
@@ -117,14 +122,13 @@ export default {
       /**在请求歌曲的时候可能有的歌曲不可用，或丢失。导致在播放器中的歌曲列表和页面展示存在差异，可能会出现指定的播放歌曲不服
        * 用一次查找解决问题
        */
-      for(let i in this.music){
-          if(this.music[i].index==index){
-              this.currentIndex = i;
-              break;//break跳出循环------continue跳出本次循环
-          }
+      for (let i in this.music) {
+        if (this.music[i].index == index) {
+          this.currentIndex = i;
+          break; //break跳出循环------continue跳出本次循环
+        }
       }
     });
-
     if (this.$refs.audio.volume !== null && this.$refs.volume_pro !== null) {
       this.$refs.audio.volume = 0.8;
       this.$refs.volume_pro.setProgress(0.8);
@@ -169,7 +173,11 @@ export default {
     musicPlaying() {
       this.isPlay = true;
       /**currentIndex并不等于歌单里音乐，music数组里每个属性index才对应歌单里的顺序 */
-      this.$bus.$emit('Playing',this.music[this.currentIndex].index,this.path);
+      this.$bus.$emit(
+        "Playing",
+        this.music[this.currentIndex].index,
+        this.path
+      );
     },
     /**对播放暂停进行监视 */
     musicPause() {

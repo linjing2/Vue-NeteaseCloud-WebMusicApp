@@ -30,7 +30,7 @@ export const indexMixin = {
                         /**每次完成两个网络请求都判断是否满足要求，满足才发送事件 */
     
                         if (i == musiclist.length - 1) {
-                            // console.log("emit"+i+','+musiclist.length,+','+path);
+                
                             this.$bus.$emit("playMusic", playlist,index,path);
                         }
                     })
