@@ -71,7 +71,7 @@ export default {
     },
     recordClick(index){
       this.$emit('recordClick',index);
-    }
+    },
   }
 };
 </script>

@@ -121,11 +121,17 @@ export default {
   width: 100%;
   border-radius: 50%;
 }
+.mess{
+  flex: 1;
+}
+.top{
+  margin-bottom: 10px;
+}
 .top span {
   color: #2e6bb0;
 }
 .bottom {
   position: absolute;
-  bottom: 9px;
+  bottom: 0px;
 }
 </style>
