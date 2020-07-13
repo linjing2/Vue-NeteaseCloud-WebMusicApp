@@ -1,12 +1,12 @@
-import {  _getMusicUrl, _getLyric} from "network/detail"
+import { _getMusicUrl, _getLyric } from "network/detail"
 import { playList } from "components/content/playmusic/playList";
 export const indexMixin = {
     methods: {
-        PlayMusic(index=0) {
-            let path=this.$route.path;
+        PlayMusic(index = 0) {
+            let path = this.$route.path;
             let musiclist;
-            if(this.musiclist.length>=200){
-                musiclist=this.musiclist.slice(0,199);
+            if (this.musiclist.length >= 200) {
+                musiclist = this.musiclist.slice(0, 199);
             }
             else musiclist = this.musiclist;
             let url = null,
@@ -28,10 +28,10 @@ export const indexMixin = {
                         playlist.push(song);
                         currentLength++;
                         /**每次完成两个网络请求都判断是否满足要求，满足才发送事件 */
-    
+
                         if (i == musiclist.length - 1) {
-                
-                            this.$bus.$emit("playMusic", playlist,index,path);
+
+                            this.$bus.$emit("playMusic", playlist, index, path);
                         }
                     })
                     .catch(err => {

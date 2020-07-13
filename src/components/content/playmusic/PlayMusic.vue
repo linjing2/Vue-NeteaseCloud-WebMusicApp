@@ -107,6 +107,7 @@ export default {
     }
   },
   mounted() {
+    /**list是音乐列表，index是要播放的音乐在列表中的位置，path是当前播放音乐的路由路径 */
     this.$bus.$on("playMusic", (list, index, path) => {
       console.log("playindex," + list.length + "," + index + "," + path);
       this.music = [];
