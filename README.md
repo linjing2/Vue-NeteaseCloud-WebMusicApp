@@ -16,9 +16,22 @@
 
  **项目准备：** 
 
-后端API安装：[https://binaryify.github.io/NeteaseCloudMusicApi/#/?id=%e5%ae%89%e8%a3%85](http://)
+后端API官方文档：[https://binaryify.github.io/NeteaseCloudMusicApi/#/?id=neteasecloudmusicapi
+](http://)
+
+ **API安装步骤：** 
+
+1. git clone git@github.com:Binaryify/NeteaseCloudMusicApi.git(不会使用git的小伙伴可以直接去接口仓库下载哦，接口仓库地址：[https://github.com/Binaryify/NeteaseCloudMusicApi](http://))
+
+2.$ npm install
+
+3。cd api文件夹
+
+4.node app.js
 
 ![输入图片说明](https://images.gitee.com/uploads/images/2020/0713/093904_5acf461a_7602838.png "屏幕截图.png")
+
+以上是运行成功的效果
 
  **项目知识点介绍：Mixin** 
 
