@@ -25,8 +25,6 @@
 
 (不会使用git的小伙伴可以直接去接口仓库下载哦，接口仓库地址：[https://github.com/Binaryify/NeteaseCloudMusicApi](http://))
 
-因为好多小伙伴说下载有问题，所以我把后端接口也下载过来了，希望能让大家更方便
-
 2.$ npm install
 
 3。cd api文件夹
