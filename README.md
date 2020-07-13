@@ -8,7 +8,7 @@
 
 本项目后端接口是Github大神Binaryify的开源项目（项目地址：[https://github.com/Binaryify/NeteaseCloudMusicApi](http://)），接口文档直接在百度搜索“网易云音乐API”作者是Binaryify。
 
-本项目前端均是本人独立自主开发，所用技术栈：Vue全家桶+better-scroll。
+本项目前端均是本人独立自主开发，所用技术栈：Vue全家桶+better-scroll+axios。
 
 项目演示：（b站)[https://www.bilibili.com/video/BV1ui4y137Xr/](http://)随手点个赞吧 :tw-1f339: 
 
