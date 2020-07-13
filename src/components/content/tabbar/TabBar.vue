@@ -2,7 +2,7 @@
   <div class="tabbar">
     <div class="logo">
       <img src="~assets/img/content/logo.svg" alt @click="backHome()" />
-      <div class="title" @click="backHome()">白嫖音乐</div>
+      <div class="title" @click="backHome()">小符音乐</div>
       <div class="back" @click="back()">
         <img src="~assets/img/content/back.svg" alt />
       </div>
