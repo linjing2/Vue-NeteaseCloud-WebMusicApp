@@ -72,7 +72,9 @@ export default {
       this.searchlist = [];
     },
     keyEnter(){
+        if(this.keywords==''||this.keywords==null) return ;
         this.$router.push("/search/" + this.keywords); 
+        this.searchlist.unshift(this.keywords);
         this.keywords='';
         this.isSuggest=false;
         this.isShow=false;

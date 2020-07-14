@@ -110,7 +110,7 @@ export default {
 .search-item {
   padding: 2px 12px;
   border-radius: 10px;
-  margin-right: 10px;
+  margin:5px 10px 0px 0px;
   border: 1px solid #828385;
 }
 .hotlist {
