@@ -25,11 +25,11 @@ Github地址：[https://github.com/daoshengfu/vue-fds_music](http://)
 
 1. git clone https://github.com/Binaryify/NeteaseCloudMusicApi.git
 
-(不会使用git的小伙伴可以直接去接口仓库下载哦，接口仓库地址：[https://github.com/Binaryify/NeteaseCloudMusicApi](http://))
+(不会使用git的小伙伴可以直接去仓库下载接口哦，接口仓库地址：[https://github.com/Binaryify/NeteaseCloudMusicApi](http://))
 
-2.$ npm install
+2. npm install
 
-3。cd api文件夹
+3.cd api文件夹
 
 4.node app.js
 
@@ -47,7 +47,7 @@ Github地址：[https://github.com/daoshengfu/vue-fds_music](http://)
 
 个人觉得本项目最大的优点在于如何触发音乐播放器。一般触发音乐播放器有三种方法，$emit、vuex、$bus。
 
-1.$emit：缺点：音乐播放器和要播放的音乐所在组件必须有父子关系，而明显在一个音乐app中这是不现实的。
+1.$emit：缺点：音乐播放器和要播放音乐所在组件必须存在父子关系，而明显在一个音乐app中这是不现实的。
 
 2.vuex：利用vuex的话可以先将要播放的音乐放在vuex中(假设放在state的musiclist中)，然后在音乐播放器组件生命周期函数中监听musiclist的状态，当音乐列表不为空时播放音乐.
 
@@ -103,7 +103,7 @@ export const indexMixin = {
 }
 ```
 
-之所以将其放在mixin中，是因为这样我在任何一个页面都能使用这个方法，降低了代码的重复性。
+之所以将其放在mixin中，是因为这样我在任何一个组件中都能使用这个方法，降低了代码的重复性，也体现了模块化的编程思想。
 
  **在音乐播放器组件中接收时：** 
 
@@ -122,7 +122,7 @@ mounted() {
       this.music = this.music.sort((a, b) => {
         return a.index - b.index;
       });
-      /**在请求歌曲的时候可能有的歌曲不可用，或丢失。导致在播放器中的歌曲列表和页面展示存在差异，可能会出现指定的播放歌曲不服
+      /**在请求歌曲的时候，可能有的歌曲不可用，丢失。导致在播放器中的歌曲列表和页面展示的歌单存在差异，会出现实际的播放歌曲与要播放的歌曲不符的问题。
        * 用一次查找解决问题
        */
       for (let i in this.music) {
@@ -161,7 +161,7 @@ mounted() {
 
 （1)没选params当然是用params传参会报错啦，报错的原因：通过path进行传值的时候，报传的参数过大，而通过name进行传值确实能传，但是因为还有子路由，用name会导致后续无法重定向子路由。
 
-（2）为什么不直接传个id然后再在路由中获取信息，是因为我看了API文档发现并没有根据id获取歌手的基础信息接口。这也是搜索结果页面歌手头像都一样的原因，它给我的数据就是那样的，而且没有歌手基础信息的接口。
+（2）为什么不直接传个id然后再在路由中获取信息？，是因为我看了API文档发现并没有根据id获取歌手的基础信息接口。这也是搜索结果页面歌手头像都一样的原因，它给我的数据就是那样的，而且没有歌手基础信息的接口。
 
 （3）额外用vuex保存歌手信息，是因为我当初测试的时候发现路由直接传参，子路由重定向的时候会存在拿不到传过来的值的问题。
 
@@ -228,7 +228,7 @@ mounted() {
 
  **歌手详情** 
 
-| 歌手首页简介![输入图片说明](https://images.gitee.com/uploads/images/2020/0713/103906_8419d742_7602838.png "屏幕截图.png")  |歌手详情 ![输入图片说明](https://images.gitee.com/uploads/images/2020/0713/103936_056a2644_7602838.png "屏幕截图.png")  |
+| 歌手首页，简介![输入图片说明](https://images.gitee.com/uploads/images/2020/0713/103906_8419d742_7602838.png "屏幕截图.png")  |歌手详情 ![输入图片说明](https://images.gitee.com/uploads/images/2020/0713/103936_056a2644_7602838.png "屏幕截图.png")  |
 |---|---|
 | 相似歌手，需要登陆![输入图片说明](https://images.gitee.com/uploads/images/2020/0713/104058_8f6d2b32_7602838.png "屏幕截图.png") |
 |--|
