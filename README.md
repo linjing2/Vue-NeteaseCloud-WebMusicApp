@@ -16,7 +16,7 @@ Github地址：[https://github.com/daoshengfu/vue-fds_music](http://)
 
 本项目前端均是本人独立自主开发，所用技术栈：Vue全家桶+better-scroll+axios。
 
-项目演示：（b站)[https://www.bilibili.com/video/BV1ui4y137Xr/](http://)随手点个赞吧 :tw-1f339: 
+项目演示：（b站)[https://www.bilibili.com/video/BV1ui4y137Xr/](http://) 随手点个赞吧:tw-1f339: 
 
 下面也有项目效果图
 
@@ -248,6 +248,16 @@ mounted() {
 |---|---|
 | **纯净模式上线，听歌看评论**   ![输入图片说明](https://images.gitee.com/uploads/images/2020/0718/095732_be583e10_7602838.png "屏幕截图.png") |  **纯净模式和播放器歌单更配哦**  ![输入图片说明](https://images.gitee.com/uploads/images/2020/0718/100014_0c4fcb10_7602838.png "屏幕截图.png")|
 |---|---|
+
+ **MV** 
+
+| 推荐MV ![输入图片说明](https://images.gitee.com/uploads/images/2020/0721/153001_c36028ff_7602838.png "屏幕截图.png") | 所有MV ![输入图片说明](https://images.gitee.com/uploads/images/2020/0721/153047_d279ca8e_7602838.png "屏幕截图.png") |
+|---|---|
+
+|MV播放页面  ![输入图片说明](https://images.gitee.com/uploads/images/2020/0721/153156_d3032761_7602838.png "屏幕截图.png") |MV播放页面  ![输入图片说明](https://images.gitee.com/uploads/images/2020/0721/153331_687ce1f3_7602838.png "屏幕截图.png") |
+|---|---|
+
+
 
 
 
