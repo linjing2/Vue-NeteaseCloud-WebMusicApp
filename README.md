@@ -2,8 +2,7 @@
 
 #### 推荐项目：
 
-本人新写了个Vue组件库，目前已写20+组件，每个组件都有详细的API文档，文档链接：[https://fudaosheng.gitee.io/vbest-ui/
-](http://)。觉得不错的可以去 ***[vbest-ui](https://gitee.com/fudaosheng/vbest-ui)*** 仓库查看。
+本人新写了个Vue组件库，目前已写20+组件，每个组件都有详细的API文档，[查看文档](https://fudaosheng.gitee.io/vbest-ui/)。觉得不错的可以去 ***[vbest-ui](https://gitee.com/fudaosheng/vbest-ui)*** 仓库查看。
 
  **前言**
 
