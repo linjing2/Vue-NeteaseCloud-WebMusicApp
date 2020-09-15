@@ -47,11 +47,9 @@ Github地址：[https://github.com/daoshengfu/vue-fds_music](http://)
 
 以上是运行成功的效果
 
- **项目知识点介绍：Mixin** 
 
-![输入图片说明](https://images.gitee.com/uploads/images/2020/0713/094104_d9a27d78_7602838.png "屏幕截图.png")
-
-了解详细Mixin请去vue官网。
+#### 问题交流群
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0915/095720_2490a5ae_7602838.jpeg "qrcode_1600134831290.jpg")
 
  **项目优点** 
 
