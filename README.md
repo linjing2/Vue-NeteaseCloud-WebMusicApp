@@ -1,6 +1,5 @@
 ### Vue-NeteaseCloud-WebMusicApp-高仿网易云音乐
 
-#### [在线预览(version2.0)](http://123.56.175.108)
 
 #### 推荐项目：
 
