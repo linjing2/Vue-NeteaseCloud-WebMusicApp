@@ -1,0 +1,14 @@
+.link{
+    display: block;
+    height: 50px;
+    line-height: 50px;
+    text-decoration: none;
+    padding: 0 20px;
+    color: initial;
+}
+
+.active{
+    color: pink;
+    border-left: 2px solid var(--main-color);
+    background: #ededed;
+}
