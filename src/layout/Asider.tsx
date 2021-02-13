@@ -5,8 +5,12 @@ import { Redirect } from 'react-router-dom';
 const Asider: React.FC = () => {
   const routes = [
     {
-      to: '/player_list',
+      to: '/play_list',
       title: '歌单'
+    },
+    {
+      to: '/test',
+      title: '测试',
     }
   ];
   return (
