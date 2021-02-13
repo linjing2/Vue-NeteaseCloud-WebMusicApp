@@ -4,12 +4,20 @@ import PlayList from '../pages/playe_list/PlayList';
 import Test from '../pages/test/index';
 
 const Content: React.FC = () => {
+
+  const routesConfig = [
+    {path: '/play_list', component: PlayList},
+    {path: '/test', component: Test},
+  ]
   
   return (
     <div className="content">
       <Switch>
-        <Route path="/play_list" component={PlayList} />
-        <Route path="/test" component={Test} />
+        {
+          routesConfig.map(route => {
+            return (<Route key={route.path} {...route} />)
+          })
+        }
       </Switch>
     </div>
   );

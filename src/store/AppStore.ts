@@ -1,6 +1,6 @@
 import testStore, { TestStore } from './test';
 
-interface Store {
+export interface Store {
   testStore: TestStore;
 }
 
