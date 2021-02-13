@@ -1,0 +1,13 @@
+.musiclist {
+  .pagination_wrap {
+    display: flex;
+    padding: 10px 0;
+    justify-content: center;
+    /deep/ .ant-pagination-item-active {
+      border: 1px solid var(--main-color);
+    }
+    /deep/ .ant-pagination-item-active a{
+      color: var(--main-color);
+    }
+  }
+}

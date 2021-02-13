@@ -21,6 +21,10 @@
     "jsx": "react-jsx",
     "experimentalDecorators": true,
     "suppressImplicitAnyIndexErrors":true,
+    "baseUrl": "src",
+    "paths": {
+      "@/*": ["./*"],
+    },
   },
   "include": [
     "src"

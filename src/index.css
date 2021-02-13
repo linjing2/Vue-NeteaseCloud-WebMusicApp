@@ -1,10 +1,20 @@
-*{
+@import './common/styles/font/iconfont.css';
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-:root{
-  --main-color: pink;
+:root {
+  /* 主色 */
+  --main-color: rgba(237, 72, 123, 1);
+  --highlight-color: #e83c3c;
+  /* 背景色 */
   --light-bg: #f9f9f9;
+  /* 暗字体色 */
+  --text-gray: #aca3a4;
+  /* 会员色 */
+  --member-color: #aa8764;
+  --border: rgba(230, 232, 234, 1);
+  --bg-pink-color: #fdf5f4;
 }

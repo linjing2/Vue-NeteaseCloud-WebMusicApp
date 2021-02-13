@@ -1,0 +1,66 @@
+.paly_item {
+  border: 1px dashed var(--border);
+  padding: 10px;
+  width: 20%;
+  cursor: pointer;
+
+  .img_wrap {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+
+    .play_count {
+      font-size: 14px;
+      width: 100%;
+      color: #fff;
+      position: absolute;
+      text-align: right;
+      padding: 5px 10px;
+
+      .icon {
+        font-size: 14px;
+        margin-right: 5px;
+      }
+    }
+
+    img {
+      width: 100%;
+    }
+
+    .play_icon {
+      position: absolute;
+      bottom: 0;
+      padding: 10px;
+
+      .icon-bofang1 {
+        font-size: 24px;
+        color: var(--highlight-color);
+      }
+    }
+  }
+  .play_item_desc{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+}
+
+.playicon-enter-active {
+  animation: opacity .4s;
+}
+
+.playicon-leave-active {
+  animation: opacity .4s reverse;
+}
+
+@keyframes opacity {
+
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

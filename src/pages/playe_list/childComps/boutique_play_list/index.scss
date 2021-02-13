@@ -1,0 +1,43 @@
+.boutique {
+  height: 180px;
+  padding: 20px;
+  display: flex;
+  background: linear-gradient(to right, hsl(17, 25%, 25%), #a8a19c);
+  .left {
+    flex: 1;
+    overflow: hidden;
+
+    img {
+      height: 100%;
+      border-radius: 12px;
+    }
+  }
+
+  .center {
+    padding: 15px 20px;
+    flex: 2;
+
+    .button {
+      color: var(--member-color);
+      border: 1px solid var(--member-color);
+      border-radius: 32px;
+      .icon {
+        margin-right: 8px;
+      }
+    }
+
+    h3 {
+      padding-top: 15px;
+      color: #fff;
+    }
+
+    p {
+      font-size: 13px;
+      color: var(--text-gray);
+    }
+  }
+
+  .right {
+    flex: 2;
+  }
+}
