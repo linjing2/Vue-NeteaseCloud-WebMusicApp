@@ -10,7 +10,6 @@ export class TestStore {
   @action
   setCount = () => {
     this.count++;
-    console.log(this.count);
   };
 }
 
