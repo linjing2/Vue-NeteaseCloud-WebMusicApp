@@ -1,13 +1,15 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import PlayList from '../pages/playe_list';
+import PlayList from '../pages/playelist';
 import Test from '../pages/test/index';
+import PlayListDetail from '@/pages/playlist_detail/index';
 
 const Content: React.FC = () => {
 
   const routesConfig = [
     {path: '/play_list', component: PlayList},
     {path: '/test', component: Test},
+    {path: '/playlist_detail/:id', component: PlayListDetail},
   ]
   
   return (

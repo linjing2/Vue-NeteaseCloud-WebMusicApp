@@ -1,4 +1,5 @@
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import './index.scss';
 
@@ -8,6 +9,7 @@ interface Props {
 
 const PlayListItem: React.FC<Props> = (props: Props) => {
   const [isShowPlay, setIsShowPlay] = useState(false);
+  const history = useHistory();
 
   const { playItem } = props;
 
@@ -28,6 +30,10 @@ const PlayListItem: React.FC<Props> = (props: Props) => {
     setIsShowPlay(false);
   };
 
+  const handleClick = useCallback(() => {
+    history.push(`/playlist_detail/${playItem.id}`);
+  },[])
+
   // 添加动画
   const opaTransition = useMemo((): string => (isShowPlay ? 'playicon-enter-active' : 'playicon-leave-active'), [
     isShowPlay
@@ -46,7 +52,7 @@ const PlayListItem: React.FC<Props> = (props: Props) => {
 
   return (
     <div className="paly_item">
-      <div className="img_wrap" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <div className="img_wrap" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleClick}>
         <div className="play_count">
           <span className="iconfont icon-erji icon" />
           {playCount}

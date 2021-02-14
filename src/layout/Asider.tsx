@@ -11,7 +11,7 @@ const Asider: React.FC = () => {
     {
       to: '/test',
       title: '测试',
-    }
+    },
   ];
   return (
     <div className="asider">

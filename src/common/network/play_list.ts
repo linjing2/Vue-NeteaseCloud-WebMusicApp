@@ -35,3 +35,36 @@ export function getPlayList(cat: string, limit: number, offset: number): any {
     }
   });
 }
+
+//获取歌单详情
+export function getPlayListDetail(id: string){
+  return request({
+    url:'/playlist/detail',
+    params:{
+      id,
+    }
+  })
+}
+
+//获取歌曲信息
+/**获取歌单歌曲信息 */
+export function getSongsDetail(ids: string | string[]){
+  return request({
+      url:'/song/detail',
+      params:{
+          ids:ids
+      }
+  })
+}
+
+/**歌单评论信息 */
+export function getRecommends(id: string,limit: number,offset: number){
+  return request({
+      url:'/comment/playlist',
+      params:{
+          id:id,
+          limit:limit,
+          offset
+      }
+  })
+}
