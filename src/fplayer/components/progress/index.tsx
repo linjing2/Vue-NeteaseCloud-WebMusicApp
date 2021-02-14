@@ -1,4 +1,4 @@
-import React, { MouseEvent, useCallback, useMemo, useRef, useState } from 'react';
+import React, { MouseEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { FProgressProps, RectPos, defaultRectPos } from './define';
 import './index.scss';
 
@@ -26,6 +26,14 @@ const Progress: React.FC<FProgressProps> = (props: FProgressProps) => {
   const [isHoverShowThumb, setIsHoverShowThumb] = useState(false);
   const [isDrag, setIsDrag] = useState(false);
   const [rectPos, setRectPos] = useState(defaultRectPos as RectPos);
+
+  //初始化
+  useEffect(() => {
+    if (allowDrag && thumb) {
+      const _rectPos = progressRef.current.getBoundingClientRect();
+      setRectPos(_rectPos);
+    }
+  }, [allowDrag, thumb]);
 
   //计算百分比
   const getPercent = useMemo((): number => {
@@ -156,19 +164,16 @@ const Progress: React.FC<FProgressProps> = (props: FProgressProps) => {
     [allowClick, isDrag, vertical, progressRef]
   );
 
-  const handleThumbMouseDown = useCallback(
-    (e: any) => {
-      if (!allowDrag) return;
-      const _rectPos = progressRef.current.getBoundingClientRect();
-      setRectPos(_rectPos);
-      setIsDrag(true);
-      document.body.style.userSelect = 'none';
+  const handleThumbMouseDown = (e: any) => {
+    if (!allowDrag) return;
+    const _rectPos = progressRef.current.getBoundingClientRect();
+    setRectPos(_rectPos);
+    setIsDrag(true);
+    document.body.style.userSelect = 'none';
 
-      document.addEventListener('mousemove', handleThumbMouseMove);
-      document.addEventListener('mouseup', handleThumbMouseUp);
-    },
-    [allowDrag, progressRef]
-  );
+    document.addEventListener('mousemove', handleThumbMouseMove);
+    document.addEventListener('mouseup', handleThumbMouseUp);
+  };
 
   const handleThumbMouseMove = (e: any): any => {
     const { left, bottom, width, height } = rectPos;

@@ -30,6 +30,7 @@ const Test: React.FC = () => {
           strokeColor={['pink', 'rgba(237, 72, 123, 1)']}
           thumb
           allowDrag
+          allowClick
           hoverShowThumb
           loading={true}
           onChange={onChange}
