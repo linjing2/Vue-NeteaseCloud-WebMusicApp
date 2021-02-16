@@ -31,40 +31,61 @@ export function getPlayList(cat: string, limit: number, offset: number): any {
       cat,
       limit,
       offset,
-      order: 'hot',
+      order: 'hot'
     }
   });
 }
 
 //获取歌单详情
-export function getPlayListDetail(id: string){
+export function getPlayListDetail(id: string) {
   return request({
-    url:'/playlist/detail',
-    params:{
-      id,
+    url: '/playlist/detail',
+    params: {
+      id
     }
-  })
+  });
 }
 
 //获取歌曲信息
 /**获取歌单歌曲信息 */
-export function getSongsDetail(ids: string | string[]){
+export function getSongsDetail(ids: string | string[]) {
   return request({
-      url:'/song/detail',
-      params:{
-          ids:ids
-      }
-  })
+    url: '/song/detail',
+    params: {
+      ids: ids,
+      br: 999000
+    }
+  });
 }
 
 /**歌单评论信息 */
-export function getRecommends(id: string,limit: number,offset: number){
+export function getRecommends(id: string, limit: number, offset: number) {
   return request({
-      url:'/comment/playlist',
-      params:{
-          id:id,
-          limit:limit,
-          offset
-      }
-  })
+    url: '/comment/playlist',
+    params: {
+      id: id,
+      limit: limit,
+      offset
+    }
+  });
+}
+
+//获取歌曲url
+export function getMusicUrl(id: number | string) {
+  return request({
+    url: '/song/url',
+    params: {
+      id
+    }
+  });
+}
+
+//获取歌词
+export function getMusicLyric(id: number | string): Promise<any> {
+  return request({
+    url: '/lyric',
+    params: {
+      id
+    }
+  });
 }

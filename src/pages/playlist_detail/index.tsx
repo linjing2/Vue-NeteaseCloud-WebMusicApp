@@ -1,4 +1,4 @@
-import React, { useEffect,useMemo,useState } from 'react';
+import React, { useCallback, useEffect,useMemo,useState } from 'react';
 import { observer } from 'mobx-react';
 import { useParams } from 'react-router-dom';
 import useStores from '@/store';
@@ -17,6 +17,7 @@ const PlayListDetail: React.FC = () => {
   const { id } = useParams() as { id: string };
   const [modal, setModal] = useState('songs');
   const {getPlayListDetail,spinning,songs,playlistInfo} = useStores('playListDetailStore');
+  const {playMusic ,loading} = useStores('playMusicStore');
 
   useEffect(() => {
       getPlayListDetail(id);
@@ -26,10 +27,14 @@ const PlayListDetail: React.FC = () => {
     setModal(value);
   }
 
+  const onPlayMusic = useCallback((index: number = 0) => {
+    playMusic(toJS(songs),index);
+  },[]);
+
   return (
     <div className="playlist_detail">
-      <Spin spinning={spinning}>
-          <PlayListInfo playlistInfo={playlistInfo} />
+      <Spin spinning={spinning||loading}>
+          <PlayListInfo playlistInfo={playlistInfo} onPlayMusic={onPlayMusic} />
           <NavBar navConfig={navConfig} onChange={handleChange} />
           {
             modal === 'songs' ? <SongList songList={toJS(songs)} /> : null

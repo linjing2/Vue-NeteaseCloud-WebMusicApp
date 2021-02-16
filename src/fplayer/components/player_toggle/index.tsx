@@ -1,9 +1,10 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import './index.scss';
 
 const preCls = 'fplayer_toggle';
 
 interface FplayerToggleProps {
+  isPlaying: boolean; //是否在播放状态,true播放，false暂停
   themeColor?: string;
   onPlaying?: (isPlaying: boolean) => any; //开始暂停播放回调，true正在播放状态
   onLove?: (isLove: boolean) => any; //是否喜欢,true喜欢
@@ -12,15 +13,19 @@ interface FplayerToggleProps {
   onShare?: () => any; //分享
 }
 const FplayerToggle: React.FC<FplayerToggleProps> = (props: FplayerToggleProps) => {
-  const { themeColor = '', onPlaying, onLove, onPreMusic, onNextMusic, onShare } = props;
+  const { themeColor = '', isPlaying, onPlaying, onLove, onPreMusic, onNextMusic, onShare } = props;
 
-  const [isPlaying, setIsPlaying] = useState(false); //是否在播放状态
+  const [innerIsPlaying, setInnerIsPlaying] = useState(false); //是否在播放状态
   const [isLove, setIsLove] = useState(false); //是否喜欢
+
+  useEffect(() => {
+    setInnerIsPlaying(isPlaying);
+  }, [isPlaying]);
   //事件
   const handleToggle = useCallback(() => {
-    setIsPlaying(!isPlaying);
-    if (onPlaying) onPlaying(!isPlaying);
-  }, [isPlaying, onPlaying]);
+    setInnerIsPlaying(!innerIsPlaying);
+    if (onPlaying) onPlaying(!innerIsPlaying);
+  }, [innerIsPlaying, onPlaying]);
 
   const handleLove = useCallback(() => {
     setIsLove(!isLove);
@@ -49,9 +54,9 @@ const FplayerToggle: React.FC<FplayerToggleProps> = (props: FplayerToggleProps) 
     };
   }, [isLove]);
   const playClass = useMemo(() => {
-    const _class = ['iconfont play_icon', isPlaying ? 'fplayer-kaishi' : 'fplayer-zanting'];
+    const _class = ['iconfont play_icon', innerIsPlaying ? 'fplayer-kaishi' : 'fplayer-zanting'];
     return _class.join(' ');
-  }, [isPlaying]);
+  }, [innerIsPlaying]);
   const preStyle = useMemo(() => {
     return {
       color: themeColor

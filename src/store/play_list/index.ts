@@ -1,6 +1,6 @@
 import { observable, action, makeObservable, computed, autorun } from 'mobx';
 import { HigCover, defaultHigCover, TagList } from './defined';
-import { getHighquality, getCatList, getMusicListHotTag, getPlayList } from '@/common/network/play_list';
+import { getHighquality, getCatList, getMusicListHotTag, getPlayList } from '@/common/api/play_list';
 import { Pagination, defaultPagination } from '../global';
 
 

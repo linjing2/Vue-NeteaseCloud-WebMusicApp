@@ -8,8 +8,11 @@
     height: 45px;
     border-radius: 8px;
     cursor: pointer;
-    background: yellow;
+    overflow: hidden;
     position: relative;
+    img{
+      width: 100%;
+    }
     &_wrap {
       position: absolute;
       top: 0;

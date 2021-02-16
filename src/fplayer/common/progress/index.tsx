@@ -19,13 +19,16 @@ const Progress: React.FC<FProgressProps> = (props: FProgressProps) => {
     loading = false,
     allowClick = false,
     allowDrag = false,
-    onChange
+    onChange,
+    onDragStart,
+    onDragEnded
   } = props;
 
   const progressRef = useRef({} as HTMLDivElement);
   const [isHoverShowThumb, setIsHoverShowThumb] = useState(false);
   const [isDrag, setIsDrag] = useState(false);
   const [rectPos, setRectPos] = useState(defaultRectPos as RectPos);
+  const [innerPercent, setInnerPercent] = useState(0); //拖拽、点击时暂存percent
 
   //初始化
   useEffect(() => {
@@ -37,10 +40,14 @@ const Progress: React.FC<FProgressProps> = (props: FProgressProps) => {
 
   //计算百分比
   const getPercent = useMemo((): number => {
-    let _percent = 0;
-    _percent = percent > 100 ? 100 : percent < 0 ? 0 : percent;
-    return _percent;
-  }, [percent]);
+    if (isDrag) {   
+      return innerPercent;
+    } else {
+      let _percent = 0;
+      _percent = percent > 100 ? 100 : percent < 0 ? 0 : percent;
+      return _percent;
+    }
+  }, [percent,isDrag,innerPercent]);
 
   //getPercent是否为0，不等于0为true
   const isPercentEqual0 = useMemo(() => {
@@ -159,16 +166,19 @@ const Progress: React.FC<FProgressProps> = (props: FProgressProps) => {
       } else {
         _percent = ((clientX - left) / width) * 100;
       }
-      if (onChange) onChange(_percent);
+      if (onChange) onChange(_percent, false);
     },
-    [allowClick, isDrag, vertical, progressRef]
+    [allowClick, isDrag, vertical, progressRef, onChange]
   );
 
   const handleThumbMouseDown = (e: any) => {
     if (!allowDrag) return;
     const _rectPos = progressRef.current.getBoundingClientRect();
     setRectPos(_rectPos);
+    //拖拽时不使用父组件percent，不设置percent
+    setInnerPercent(getPercent);
     setIsDrag(true);
+    if (onDragStart) onDragStart(getPercent);
     document.body.style.userSelect = 'none';
 
     document.addEventListener('mousemove', handleThumbMouseMove);
@@ -187,7 +197,8 @@ const Progress: React.FC<FProgressProps> = (props: FProgressProps) => {
       _percent = ((clientX - left) / width) * 100;
     }
     _percent = _percent > 100 ? 100 : _percent < 0 ? 0 : _percent;
-    if (onChange) onChange(_percent);
+    setInnerPercent(_percent);
+    if (onChange) onChange(_percent, true);
   };
 
   const handleThumbMouseUp = (e: any) => {
@@ -196,6 +207,7 @@ const Progress: React.FC<FProgressProps> = (props: FProgressProps) => {
     document.removeEventListener('mouseup', handleThumbMouseUp);
     setIsDrag(false);
     document.body.style.userSelect = 'initial';
+    if (onDragEnded) onDragEnded(innerPercent);
   };
 
   //thumb节点

@@ -1,5 +1,5 @@
 import { observable, action, makeAutoObservable } from 'mobx';
-import { getPlayListDetail, getSongsDetail, getRecommends } from '@/common/network/play_list';
+import { getPlayListDetail, getSongsDetail, getRecommends } from '@/common/api/play_list';
 import { PlaylistInfo, Song, SongTypes } from './defined';
 
 export class PlayListDetailStore {

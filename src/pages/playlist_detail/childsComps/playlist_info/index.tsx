@@ -6,8 +6,9 @@ import { formatDate } from '@/common/utils/tool';
 
 interface Props {
   playlistInfo: PlaylistInfoTypes;
+  onPlayMusic?: (index: number) => any;
 }
-const PlayListInfo: React.FC<Props> = ({ playlistInfo }: Props) => {
+const PlayListInfo: React.FC<Props> = ({ playlistInfo, onPlayMusic }: Props) => {
   const getCreateDate = useMemo(() => {
     return formatDate(new Date(playlistInfo.createTime), 'yyyy-MM-dd');
   }, [playlistInfo]);
@@ -16,7 +17,9 @@ const PlayListInfo: React.FC<Props> = ({ playlistInfo }: Props) => {
     return playlistInfo.tags && playlistInfo.tags.join(' / ');
   }, [playlistInfo]);
 
-  const onPlayMusic = () => {};
+  const handlePlayMusic = () => {
+    if (onPlayMusic) onPlayMusic(0);
+  };
   return (
     <div className="playlist_info">
       <div className="left">
@@ -56,7 +59,7 @@ const PlayListInfo: React.FC<Props> = ({ playlistInfo }: Props) => {
               shape="round"
               style={{ border: 'none', background: 'var(--main-color)', color: '#fff' }}
               className="button"
-              onClick={onPlayMusic}>
+              onClick={handlePlayMusic}>
               <i className="iconfont icon-bofang" />
               播放全部
             </Button>

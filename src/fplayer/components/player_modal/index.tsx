@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import './index.scss';
 import { BaseProps } from '../../defined';
+import Progress from '../../common/progress/index';
 
 const preCls = 'fplayer_modal';
 
@@ -12,6 +13,7 @@ const FplayerModal: React.FC<FplayerModalProps> = (props: FplayerModalProps) => 
   const [isDisableVolume, setDisableVolume] = useState(false); //是否禁音,true为禁音
   const [isShowLyric, setIsShowLyric] = useState(false); //是否显示歌词
   const [isShowPlayList, setIsShowPlayList] = useState(false); //是否显示播放列表
+  const [isShowVolumeContainer, setIsShowVolumeContainer] = useState(false);
 
   //事件
   //播放模式
@@ -27,6 +29,14 @@ const FplayerModal: React.FC<FplayerModalProps> = (props: FplayerModalProps) => 
   const handleDisableVolume = useCallback(() => {
     setDisableVolume(!isDisableVolume);
   }, [isDisableVolume]);
+
+  const handleVolumeMouseEnter = useCallback(() => {
+    setIsShowVolumeContainer(true);
+  }, [isShowVolumeContainer]);
+
+  const handleVolumeMouseLeave = useCallback(() => {
+    setIsShowVolumeContainer(false);
+  }, [isShowVolumeContainer]);
 
   const handleIsPlayListClick = useCallback(() => {
     setIsShowPlayList(!isShowPlayList);
@@ -63,7 +73,7 @@ const FplayerModal: React.FC<FplayerModalProps> = (props: FplayerModalProps) => 
   }, [getModalType]);
 
   const volumeCls = useMemo(() => {
-    const _class = ['item iconfont', isDisableVolume ? 'fplayer-volume1' : 'fplayer-volume'];
+    const _class = ['item iconfont volume', isDisableVolume ? 'fplayer-volume1' : 'fplayer-volume'];
     return _class.join(' ');
   }, [isDisableVolume]);
 
@@ -95,7 +105,19 @@ const FplayerModal: React.FC<FplayerModalProps> = (props: FplayerModalProps) => 
         title="歌词"
         onClick={handleIsShowLricClick}
       />
-      <a href="#" className={volumeCls} title="音量" onClick={handleDisableVolume} />
+      <a
+        href="#"
+        className={volumeCls}
+        title="音量"
+        onClick={handleDisableVolume}
+        onMouseEnter={handleVolumeMouseEnter}
+        onMouseLeave={handleVolumeMouseLeave}>
+        {isShowVolumeContainer ? (
+          <div className={`${preCls}_volume_container`}>
+            <Progress percent={40} vertical strokeWidth={4} strokeColor={themeColor} />
+          </div>
+        ) : null}
+      </a>
       <a href="https://gitee.com/fudaosheng/fplayer" className="item iconfont fplayer-github" title="代码仓库" />
     </div>
   );

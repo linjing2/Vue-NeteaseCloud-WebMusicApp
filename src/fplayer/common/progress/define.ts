@@ -14,7 +14,9 @@ export interface FProgressProps {
   thumbWidth?: string | number;
   showthumbCircle?: boolean; //是否显示滑块圆心
   thumbCircleColor?: string; //滑块圆心背景色
-  onChange?: (percent: number) => any;
+  onChange?: (percent: number, isDrag: boolean) => any;//isDrag是否是拖拽导致的change
+  onDragStart?: (percent: number) => any;//开始拖拽
+  onDragEnded?: (percent: number) => any;//拖拽结束
 }
 
 export interface RectPos {

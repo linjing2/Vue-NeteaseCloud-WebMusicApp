@@ -1,10 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useMemo, useCallback } from 'react';
 import './index.scss';
+import { FPlayerContext } from '../../index';
+import { formatDate } from '../../utils/tool';
 
 const preCls = 'fplayer_song_info';
 
-const SongInfo: React.FC = () => {
+interface Props {
+  duration: number;
+  currentTime: number;
+}
+
+const SongInfo: React.FC<Props> = (props: Props) => {
+  const { duration = 0, currentTime = 0 } = props;
+
   const [isShow, setIsShow] = useState(false);
+  const currentAudio = useContext(FPlayerContext);
+
+  const fmtDuration = useMemo(() => {
+    return formatDate(new Date(duration), 'mm:ss');
+  }, [duration]);
+
+  const fmtCurrentTime = useMemo(() => {
+    return formatDate(new Date(currentTime), 'mm:ss');
+  }, [currentTime]);
 
   const handleMousenter = () => {
     setIsShow(true);
@@ -15,6 +33,7 @@ const SongInfo: React.FC = () => {
   return (
     <div className={preCls}>
       <div className={`${preCls}_pic`} onMouseEnter={handleMousenter} onMouseLeave={hanleMouseLeave}>
+        {currentAudio.cover ? <img src={currentAudio.cover} alt="" /> : null}
         {isShow ? (
           <div className={`${preCls}_pic_wrap`}>
             <span className="iconfont fplayer-zhankaishangxia"></span>
@@ -23,14 +42,14 @@ const SongInfo: React.FC = () => {
       </div>
       <div className={`${preCls}_info`}>
         <div>
-          <span className={`${preCls}_info_songname`}>通透</span>
+          <span className={`${preCls}_info_songname`}>{currentAudio.name || 'name'}</span>
           <i>-</i>
-          陈逸云
+          {currentAudio.artist || 'artist'}
         </div>
         <div>
-          00:07
+          {fmtCurrentTime}
           <i>/</i>
-          04:45
+          {fmtDuration}
         </div>
       </div>
     </div>
