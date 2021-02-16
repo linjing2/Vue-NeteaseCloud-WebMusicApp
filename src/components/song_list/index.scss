@@ -1,0 +1,30 @@
+.song_list {
+  /deep/ .ant-table tbody {
+    font-size: 13px;
+  }
+  .song_pic {
+    width: 60px;
+    height: 60px;
+    position: relative;
+    .img {
+      width: 60px;
+      height: 60px;
+      border-radius: 10px;
+    }
+    .wrap {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      z-index: 9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  .icon-bofang1 {
+    color: var(--highlight-color);
+  }
+}

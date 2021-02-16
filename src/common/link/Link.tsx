@@ -10,7 +10,7 @@ interface Props {
 
 const Link: React.FC<Props> = ({ to = '', children = null, title = '' }: Props) => {
   return (
-    <NavLink to={to} className="link" activeClassName="active">
+    <NavLink to={to} className="link" activeClassName="link_active">
       {children ? children : title ? title : null}
     </NavLink>
   );

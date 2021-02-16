@@ -1,10 +1,30 @@
-import React from 'react';
+import React, { createContext } from 'react';
+import './index.scss';
+import { FplayerProps } from './defined';
+import Progress from './common/progress/index';
+import SongInfo from './components/songInfo/index';
+import FplayerToggle from './components/player_toggle/index';
+import FplayerModal from './components/player_modal';
 
-const Fplayer: React.FC = () => {
+export const preCls = 'fplayer';
+export const FPlayerContext = createContext({} as any);
+
+const Fplayer: React.FC<FplayerProps> = (props: FplayerProps) => {
+  const { themeColor = '#2d8cf0' } = props;
   return (
-    <div className="fplayer">
-      <h4>播放器</h4>
-    </div>
+    <FPlayerContext.Provider value={null}>
+      <audio></audio>
+      <div className="fplayer">
+        <div className="fplayer_head">
+          <Progress percent={40} strokeColor={themeColor} />
+        </div>
+        <div className="fplayer_main">
+          <SongInfo />
+          <FplayerToggle themeColor={themeColor} />
+          <FplayerModal themeColor={themeColor} />
+        </div>
+      </div>
+    </FPlayerContext.Provider>
   );
 };
 

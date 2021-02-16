@@ -1,0 +1,15 @@
+@import './styles/index.css';
+.fplayer{
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .fplayer_main{
+        flex: 1;
+        border: 1px dashed red;
+        padding: 0 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}

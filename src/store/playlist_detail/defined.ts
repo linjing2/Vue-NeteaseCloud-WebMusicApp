@@ -48,6 +48,7 @@ export interface SongTypes {
   artist: string;
   pic: string;
   time: string;
+  key: string;
 }
 
 export class Song implements SongTypes {
@@ -57,12 +58,14 @@ export class Song implements SongTypes {
   artist = '';
   pic = '';
   time = '';
-  constructor(song: any) {
+  key= '';
+  constructor(song: any, index: number) {
     this.id = song.id;
     this.name = song.name;
     this.album = song.al.name;
     this.artist = song.ar[0].name;
     this.pic = song.al.picUrl;
     this.time = formatDate(new Date(song.dt), 'mm:ss');
+    this.key = song.id + `-${index}`;//antd表格需要key
   }
 }

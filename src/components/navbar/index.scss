@@ -1,0 +1,24 @@
+.nav_bar {
+  @mixin felx-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  margin: 10x 0;
+  .item_wrap {
+    width: 80px;
+    height: 40px;
+    @include felx-center;
+    cursor: pointer;
+    .item {
+      height: 100%;
+      @include felx-center;
+    }
+    .active {
+      color: var(--main-color);
+      border-bottom: 2px solid var(--main-color);
+    }
+  }
+}

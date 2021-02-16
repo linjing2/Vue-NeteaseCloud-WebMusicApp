@@ -1,0 +1,14 @@
+.fplayer_modal {
+  width: calc((100% - 200px) / 2);
+  height: 100%;
+  border: 1px solid green;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  .item {
+    text-decoration: none;
+    color: initial;
+    margin: 0px 10px;
+    font-size: 18px;
+  }
+}

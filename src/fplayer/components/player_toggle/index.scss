@@ -1,0 +1,13 @@
+.fplayer_toggle{
+    width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .iconfont{
+        font-size: 18px;
+        margin: 0 10px;
+    }
+    .play_icon{
+        font-size: 28px;
+    }
+}

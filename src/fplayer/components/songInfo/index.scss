@@ -1,0 +1,44 @@
+.fplayer_song_info {
+  width: calc((100% - 200px) / 2);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  &_pic {
+    width: 45px;
+    height: 45px;
+    border-radius: 8px;
+    cursor: pointer;
+    background: yellow;
+    position: relative;
+    &_wrap {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(black, 0.25);
+      .iconfont {
+        color: #fff;
+      }
+    }
+  }
+  &_info {
+    height: 45px;
+    padding: 2px 0px 2px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: var(--text-color);
+    font-size: 13px;
+    &_songname {
+      color: initial;
+    }
+    i {
+      margin: 0px 4px;
+    }
+  }
+}

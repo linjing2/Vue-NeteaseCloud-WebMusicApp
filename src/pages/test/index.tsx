@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import useStores from '../../store/index';
 import TestCom from './childsComps/test';
-import Progress from '../../fplayer/components/progress/index';
+import Progress from '@/fplayer/common/progress/index';
 import './index.scss';
 
 const Test: React.FC = () => {
