@@ -7,9 +7,12 @@ const preCls = 'fplayer_modal';
 
 interface FplayerModalProps extends BaseProps {
   onPlaySchemaChange: (schemaIndex: number) => any;
+  volumePercent: number;
+  onToggleDisableVolume: (isDisableVolume: boolean) => any; //切换音量禁音、正常,true禁音
+  onVolumeChange: (volumePercent: number) => any;
 }
 const FplayerModal: React.FC<FplayerModalProps> = (props: FplayerModalProps) => {
-  const { themeColor = '', onPlaySchemaChange } = props;
+  const { themeColor = '', volumePercent = 100, onToggleDisableVolume, onVolumeChange, onPlaySchemaChange } = props;
 
   const [schemaIndex, setSchemaIndex] = useState(0);
   const [isDisableVolume, setDisableVolume] = useState(false); //是否禁音,true为禁音
@@ -30,9 +33,11 @@ const FplayerModal: React.FC<FplayerModalProps> = (props: FplayerModalProps) => 
     if (onPlaySchemaChange) onPlaySchemaChange(_schemaIndex);
   }, [schemaIndex, onPlaySchemaChange]);
 
-  const handleDisableVolume = useCallback(() => {
+  //切换volume
+  const handleDisableVolume = () => {
     setDisableVolume(!isDisableVolume);
-  }, [isDisableVolume]);
+    onToggleDisableVolume(!isDisableVolume);
+  }
 
   const handleVolumeMouseEnter = useCallback(() => {
     setIsShowVolumeContainer(true);
@@ -42,10 +47,21 @@ const FplayerModal: React.FC<FplayerModalProps> = (props: FplayerModalProps) => 
     setIsShowVolumeContainer(false);
   }, [isShowVolumeContainer]);
 
+  //volume change
+  const handleVolumeChange = (percent: number) => {
+    if (onVolumeChange) onVolumeChange(percent);
+    if(percent === 0) {
+      setDisableVolume(true);
+    } else {
+      setDisableVolume(false);
+    }
+  };
+
   const handleIsPlayListClick = useCallback(() => {
     setIsShowPlayList(!isShowPlayList);
   }, [isShowPlayList]);
 
+  //lyric
   const handleIsShowLricClick = useCallback(() => {
     setIsShowLyric(!isShowLyric);
   }, [isShowLyric]);
@@ -109,19 +125,27 @@ const FplayerModal: React.FC<FplayerModalProps> = (props: FplayerModalProps) => 
         title="歌词"
         onClick={handleIsShowLricClick}
       />
-      <a
-        href="#"
-        className={volumeCls}
-        title="音量"
-        onClick={handleDisableVolume}
+      <div
+        className={`${preCls}_volume_wrap`}
         onMouseEnter={handleVolumeMouseEnter}
         onMouseLeave={handleVolumeMouseLeave}>
+        <a href="#" className={volumeCls} title="音量" onClick={handleDisableVolume} />
         {isShowVolumeContainer ? (
           <div className={`${preCls}_volume_container`}>
-            <Progress percent={40} vertical strokeWidth={4} strokeColor={themeColor} />
+            <Progress
+              percent={volumePercent}
+              vertical
+              strokeWidth={4}
+              strokeColor={themeColor}
+              thumb
+              hoverShowThumb
+              allowClick
+              allowDrag
+              onChange={handleVolumeChange}
+            />
           </div>
         ) : null}
-      </a>
+      </div>
       <a href="https://gitee.com/fudaosheng/fplayer" className="item iconfont fplayer-github" title="代码仓库" />
     </div>
   );

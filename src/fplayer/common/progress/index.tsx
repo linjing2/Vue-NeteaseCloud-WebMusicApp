@@ -119,7 +119,7 @@ const Progress: React.FC<FProgressProps> = (props: FProgressProps) => {
     return {
       width: thumbWidth ? (typeof thumbWidth === 'string' ? thumbWidth : `${thumbWidth}px`) : `${getThumbSize}px`,
       height: thumbWidth ? (typeof thumbWidth === 'string' ? thumbWidth : `${thumbWidth}px`) : `${getThumbSize}px`,
-      background: thumbColor
+      background: thumbColor ? thumbColor : typeof strokeColor === 'string' ? strokeColor : strokeColor[0],
     };
   }, [thumbWidth, getThumbSize, thumbColor]);
 
@@ -151,6 +151,7 @@ const Progress: React.FC<FProgressProps> = (props: FProgressProps) => {
 
   const handleProgressClick = useCallback(
     (e: MouseEvent) => {
+      e.stopPropagation();
       if (!allowClick) return;
       if (isDrag) return;
       const { clientX, clientY } = e;

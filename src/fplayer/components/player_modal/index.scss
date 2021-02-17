@@ -10,10 +10,10 @@
     margin: 0px 10px;
     font-size: 18px;
   }
-  .volume {
-    position: relative;
+  &_volume_wrap{
     display: inline-flex;
     justify-content: center;
+    position: relative;
   }
   &_volume_container {
     width: 40px;

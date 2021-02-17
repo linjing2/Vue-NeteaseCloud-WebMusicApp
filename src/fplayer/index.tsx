@@ -1,6 +1,6 @@
 import React, { createContext, useCallback, useEffect, useRef, useState, useMemo } from 'react';
 import './index.scss';
-import { FplayerProps, defaultCurrentAudio, AudioType,audioSchema } from './defined';
+import { FplayerProps, defaultCurrentAudio, AudioType, audioSchema } from './defined';
 import Progress from './common/progress/index';
 import SongInfo from './components/songInfo/index';
 import FplayerToggle from './components/player_toggle/index';
@@ -23,10 +23,12 @@ const Fplayer: React.FC<FplayerProps> = (props: FplayerProps) => {
   const [audioPercent, setAudioPercent] = useState(0);
   const [innerAudioList, setInnerAudioList] = useState([] as Array<AudioType>);
   const [schemaIndex, setSchemaIndex] = useState(0);
+  const [volumePercent, setVolumePercent] = useState(100);//音量
+  const [mockVolumePercent, setMockVolumePercent] = useState(100);
 
+  //处理audioList
   useEffect(() => {
     setCurrentAudioIndex(0);
-    //处理audioList
     if (audioList.length) {
       const flag = audioList.every(item => typeof item.index === 'number');
       let _innerAudioList = [];
@@ -50,13 +52,26 @@ const Fplayer: React.FC<FplayerProps> = (props: FplayerProps) => {
     }
   }, [audioList, innerAudioList, defaultAudioIndex]);
 
+  //处理拖拽设置音乐进度
   useEffect(() => {
-    //拿到最新的percent
     const newCurrentTime = (audioRef.current.duration * audioPercent) / 100;
     if (newCurrentTime && !isAudioProgressDrag) {
       audioRef.current.currentTime = newCurrentTime;
     }
   }, [isAudioProgressDrag]);
+
+  //设置volume
+  useEffect(() => {
+    audioRef.current.volume = volumePercent / 100;
+  },[volumePercent,audioRef]);
+
+  const currentAudioUrl = useMemo(() => {
+    if (currentAudio && currentAudio.url) {
+      return currentAudio.url;
+    } else {
+      return '';
+    }
+  }, [currentAudio]);
 
   /**事件 */
   const handleAudioLoadStart = useCallback(() => {
@@ -96,14 +111,14 @@ const Fplayer: React.FC<FplayerProps> = (props: FplayerProps) => {
   const handleAudioEnded = useCallback(() => {
     setIsPlaying(false);
     const newCurrentAudioIndex = currentAudioIndex + 1;
-    toggleAudio(true,newCurrentAudioIndex);
+    toggleAudio(true, newCurrentAudioIndex);
   }, [currentAudioIndex, isPlaying]);
 
   const handleAudioError = (err: any) => {
     if (!audioList.length) return;
     console.log('音频加载错误');
     console.log(err);
-    toggleAudio(true,currentAudioIndex + 1);
+    toggleAudio(true, currentAudioIndex + 1);
   };
 
   const handleAudioTimeUpdate = () => {
@@ -117,19 +132,19 @@ const Fplayer: React.FC<FplayerProps> = (props: FplayerProps) => {
   /**功能函数 */
   //设置指定音频
   /**
-   * 
+   *
    * @param isAutoToggle 是否自动切换歌曲，false不会考虑schema
-   * @param newCurrentAudioIndex 
+   * @param newCurrentAudioIndex
    */
-  const toggleAudio = (isAutoToggle: boolean,newCurrentAudioIndex: number) => {
-    if(isAutoToggle){
+  const toggleAudio = (isAutoToggle: boolean, newCurrentAudioIndex: number) => {
+    if (isAutoToggle) {
       console.log(schemaIndex, audioSchema.RANDOM);
-      
-      switch(schemaIndex){
+
+      switch (schemaIndex) {
         case audioSchema.ORDER:
           break;
         case audioSchema.RANDOM:
-          newCurrentAudioIndex = Math.floor(Math.random() * innerAudioList.length); //随机播放 
+          newCurrentAudioIndex = Math.floor(Math.random() * innerAudioList.length); //随机播放
           console.log(newCurrentAudioIndex);
           break;
         case audioSchema.LOOP:
@@ -160,11 +175,11 @@ const Fplayer: React.FC<FplayerProps> = (props: FplayerProps) => {
 
   //切换播放歌曲
   const handleTogglePreAudio = useCallback(() => {
-    toggleAudio(false,currentAudioIndex - 1);
+    toggleAudio(false, currentAudioIndex - 1);
   }, [currentAudioIndex]);
 
   const handleToggleNextAudio = useCallback(() => {
-    toggleAudio(false,currentAudioIndex + 1);
+    toggleAudio(false, currentAudioIndex + 1);
   }, [currentAudioIndex]);
 
   const handleAudioProgressChange = useCallback((percent: number, isDrag: boolean) => {
@@ -183,39 +198,54 @@ const Fplayer: React.FC<FplayerProps> = (props: FplayerProps) => {
   }, [isAudioProgressDrag]);
 
   //切换播放方式
-  const handlePlaySchemaChange = useCallback((schemaIndex: number) => {
-    console.log(schemaIndex);
-    
-    setSchemaIndex(schemaIndex);
-  },[schemaIndex]);
+  const handlePlaySchemaChange = useCallback(
+    (schemaIndex: number) => {
+      console.log(schemaIndex);
+
+      setSchemaIndex(schemaIndex);
+    },
+    [schemaIndex]
+  );
+
+  //volume
+  //切换volume
+  const handleToggleVolume = useCallback((isDisableVolume: boolean) => {
+    if(isDisableVolume){
+      setMockVolumePercent(volumePercent);
+      setVolumePercent(0);
+    } else {
+      setVolumePercent(mockVolumePercent);
+    }
+  }, [volumePercent,mockVolumePercent]);
+
+  const handleVulumeChange = useCallback((percent: number) => {
+    setVolumePercent(percent);
+  },[volumePercent]);
 
   return (
     <FPlayerContext.Provider value={currentAudio}>
-      {currentAudio && currentAudio.url ? (
-        <audio
-          src={currentAudio.url}
-          autoPlay={autoPlay}
-          ref={audioRef}
-          loop={schemaIndex === audioSchema.LOOP ? true : false}
-          onLoadStart={handleAudioLoadStart}
-          onDurationChange={handleAudioDurationChange}
-          onLoadedMetadata={handleAudioLoadedMetadata}
-          onProgress={handleAudioProgress}
-          onCanPlay={handleAudioCanPlay}
-          onCanPlayThrough={handleAudioCanPlayThrough}
-          onPlaying={handleAudioPlaying}
-          onPause={handleAudioPause}
-          onEnded={handleAudioEnded}
-          onError={handleAudioError}
-          onTimeUpdate={handleAudioTimeUpdate}
-        />
-      ) : null}
+      <audio
+        src={currentAudioUrl}
+        autoPlay={autoPlay}
+        ref={audioRef}
+        loop={schemaIndex === audioSchema.LOOP ? true : false}
+        onLoadStart={handleAudioLoadStart}
+        onDurationChange={handleAudioDurationChange}
+        onLoadedMetadata={handleAudioLoadedMetadata}
+        onProgress={handleAudioProgress}
+        onCanPlay={handleAudioCanPlay}
+        onCanPlayThrough={handleAudioCanPlayThrough}
+        onPlaying={handleAudioPlaying}
+        onPause={handleAudioPause}
+        onEnded={handleAudioEnded}
+        onError={handleAudioError}
+        onTimeUpdate={handleAudioTimeUpdate}
+      />
       <div className="fplayer">
         <div className="fplayer_head">
           <Progress
             percent={audioPercent}
             strokeColor={themeColor}
-            thumbColor={themeColor}
             loading={isAudioLoading}
             thumb
             hoverShowThumb
@@ -235,7 +265,13 @@ const Fplayer: React.FC<FplayerProps> = (props: FplayerProps) => {
             onPreMusic={handleTogglePreAudio}
             onNextMusic={handleToggleNextAudio}
           />
-          <FplayerModal themeColor={themeColor} onPlaySchemaChange={handlePlaySchemaChange} />
+          <FplayerModal
+            themeColor={themeColor}
+            volumePercent={volumePercent}
+            onPlaySchemaChange={handlePlaySchemaChange}
+            onToggleDisableVolume={handleToggleVolume}
+            onVolumeChange={handleVulumeChange}
+          />
         </div>
       </div>
     </FPlayerContext.Provider>
