@@ -9,9 +9,13 @@ export class PlayMusicStore {
       makeAutoObservable(this);
   }
   @observable
+  loading: boolean = false;
+  @observable
   audioList: Array<AudioType> = []; //音频列表
   @observable
-  loading: boolean = false;
+  defaultAudioIndex: number = 0;
+  @observable
+  currentAudio: AudioType = {} as AudioType;
 
   /**播放音乐的初始化操作
    * @params playList播放列表
@@ -24,31 +28,38 @@ export class PlayMusicStore {
     const _audioList = [] as Array<AudioType>;
     const count = playList.length;
     this.loading = true;
+    this.defaultAudioIndex = index;
     playList.some((item: SongTypes, index) => {
       let url = getMusicUrl(item.id).then(res => {
         const url = res.data.data[0].url;
         return Promise.resolve(url);
       });
       let lyric = getMusicLyric(item.id).then(res => {
-        const lyric = res.data.lrc.lyric;
+        const lyric = res.data.lrc.lyric||'';
         return Promise.resolve(lyric);
       });
       Promise.all([url, lyric])
         .then(results => {
-          const audio = new Audio(item, results[0], results[1]);
+          const audio = new Audio(item, results[0], results[1],index);
           _audioList.push(audio);
           if (index + 1 === count) {
-            console.log(_audioList);
             this.loading = false;
             this.audioList = _audioList;
+            console.log(_audioList);
+            
           }
         })
         .catch(err => {
           this.loading = false;
-          alert(err);
+          // alert(err);
         });
     });
   };
+
+  @action
+  setCurrentAudio = (audio: AudioType) => {
+    this.currentAudio = audio;
+  }
 }
 
 export default new PlayMusicStore();

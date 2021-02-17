@@ -29,7 +29,7 @@ const PlayListDetail: React.FC = () => {
 
   const onPlayMusic = useCallback((index: number = 0) => {
     playMusic(toJS(songs),index);
-  },[]);
+  },[songs]);
 
   return (
     <div className="playlist_detail">
@@ -37,7 +37,7 @@ const PlayListDetail: React.FC = () => {
           <PlayListInfo playlistInfo={playlistInfo} onPlayMusic={onPlayMusic} />
           <NavBar navConfig={navConfig} onChange={handleChange} />
           {
-            modal === 'songs' ? <SongList songList={toJS(songs)} /> : null
+            modal === 'songs' ? <SongList songList={toJS(songs)} onPlayMusic={onPlayMusic} /> : null
           }
       </Spin>
     </div>

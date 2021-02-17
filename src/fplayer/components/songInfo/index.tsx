@@ -33,7 +33,7 @@ const SongInfo: React.FC<Props> = (props: Props) => {
   return (
     <div className={preCls}>
       <div className={`${preCls}_pic`} onMouseEnter={handleMousenter} onMouseLeave={hanleMouseLeave}>
-        {currentAudio.cover ? <img src={currentAudio.cover} alt="" /> : null}
+        {currentAudio && currentAudio.cover ? <img src={currentAudio.cover} alt="" /> : null}
         {isShow ? (
           <div className={`${preCls}_pic_wrap`}>
             <span className="iconfont fplayer-zhankaishangxia"></span>
@@ -42,9 +42,9 @@ const SongInfo: React.FC<Props> = (props: Props) => {
       </div>
       <div className={`${preCls}_info`}>
         <div>
-          <span className={`${preCls}_info_songname`}>{currentAudio.name || 'name'}</span>
+          <span className={`${preCls}_info_songname`}>{(currentAudio && currentAudio.name) || 'name'}</span>
           <i>-</i>
-          {currentAudio.artist || 'artist'}
+          {(currentAudio && currentAudio.artist) || 'artist'}
         </div>
         <div>
           {fmtCurrentTime}

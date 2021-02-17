@@ -5,9 +5,11 @@ import Progress from '../../common/progress/index';
 
 const preCls = 'fplayer_modal';
 
-interface FplayerModalProps extends BaseProps {}
+interface FplayerModalProps extends BaseProps {
+  onPlaySchemaChange: (schemaIndex: number) => any;
+}
 const FplayerModal: React.FC<FplayerModalProps> = (props: FplayerModalProps) => {
-  const { themeColor = '' } = props;
+  const { themeColor = '', onPlaySchemaChange } = props;
 
   const [schemaIndex, setSchemaIndex] = useState(0);
   const [isDisableVolume, setDisableVolume] = useState(false); //是否禁音,true为禁音
@@ -17,14 +19,16 @@ const FplayerModal: React.FC<FplayerModalProps> = (props: FplayerModalProps) => 
 
   //事件
   //播放模式
-  const handleToggleModal = useCallback(() => {
+  const handleTogglePlaySchema = useCallback(() => {
+    let _schemaIndex;
     if (schemaIndex >= 2) {
-      setSchemaIndex(0);
+      _schemaIndex = 0;
     } else {
-      const _schemaIndex = schemaIndex + 1;
-      setSchemaIndex(_schemaIndex);
+      _schemaIndex = schemaIndex + 1;
     }
-  }, [schemaIndex]);
+    setSchemaIndex(_schemaIndex);
+    if (onPlaySchemaChange) onPlaySchemaChange(_schemaIndex);
+  }, [schemaIndex, onPlaySchemaChange]);
 
   const handleDisableVolume = useCallback(() => {
     setDisableVolume(!isDisableVolume);
@@ -90,7 +94,7 @@ const FplayerModal: React.FC<FplayerModalProps> = (props: FplayerModalProps) => 
 
   return (
     <div className={preCls}>
-      <a href="#" className={pModalCls} title={getModalType.title} onClick={handleToggleModal} />
+      <a href="#" className={pModalCls} title={getModalType.title} onClick={handleTogglePlaySchema} />
       <a
         href="#"
         className="item iconfont fplayer-bofangliebiao"
