@@ -57,7 +57,7 @@
 
 欢迎加群一起讨论，第一个群已满，请加二群
 
-|![输入图片说明](https://images.gitee.com/uploads/images/2020/0915/095720_2490a5ae_7602838.jpeg "qrcode_1600134831290.jpg")|<img src="src/assets/img/qrcode.png" style="width: 200px" />|
+|<img src="https://images.gitee.com/uploads/images/2020/0915/095720_2490a5ae_7602838.jpeg" style="width: 150px" />|<img src="src/assets/img/qrcode.png" style="width: 150px" />|
 |---|---|
 
 ### 项目效果预览

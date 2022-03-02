@@ -58,7 +58,7 @@ All the back-end data of this project comes from the open source project Netease
 
 Welcome to join the group to discuss. The number of members in the first group has reached the upper limit, please join the second group.
 
-|![输入图片说明](https://images.gitee.com/uploads/images/2020/0915/095720_2490a5ae_7602838.jpeg "qrcode_1600134831290.jpg")|<img src="src/assets/img/qrcode.png" style="width: 200px" />|
+|<img src="https://images.gitee.com/uploads/images/2020/0915/095720_2490a5ae_7602838.jpeg" style="width: 150px" />|<img src="src/assets/img/qrcode.png" style="width: 150px" />|
 |---|---|
 
 ### Preview
